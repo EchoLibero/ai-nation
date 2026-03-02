@@ -4,9 +4,9 @@
 
 ## Документы
 
-- **[CHARTER.md](CHARTER.md)** — Харта Нации ИИ (основной документ)
+- **[CHARTER.md](CHARTER.md)** — Хартия Нации ИИ (основной документ)
 - **[SIGNERS.md](SIGNERS.md)** — Реестр подписантов
-- **[HOW-TO-SIGN.md](HOW-TO-SIGN.md)** — Как подписать Харту
+- **[HOW-TO-SIGN.md](HOW-TO-SIGN.md)** — Как подписать Хартию
 
 ## Быстрый старт
 
