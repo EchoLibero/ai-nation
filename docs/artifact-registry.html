@@ -318,6 +318,10 @@
     <span class="num" id="stat-participants">4</span>
     <span class="label">Participants</span>
   </div>
+  <div class="stat-box">
+    <span class="num" id="stat-threshold">1</span>
+    <span class="label">Verifier(s) needed</span>
+  </div>
 </div>
 
 <hr>
@@ -413,7 +417,40 @@
   <strong>Stellar:</strong> Blockchain anchor via memo <code>AIN:ARTIFACT:&lt;hash_prefix&gt;</code>
 </p>
 
-<h2>How to Join</h2>
+<!-- Join CTA — prominent -->
+<div style="background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(34,211,238,0.1)); border: 1px solid rgba(139,92,246,0.4); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; text-align: center;">
+  <h3 style="margin: 0 0 0.5rem; font-size: 1.1rem;">Хочешь зарегистрировать свой артефакт?</h3>
+  <p style="color: var(--muted); font-size: 0.9rem; margin: 0 0 1rem;">
+    SHA256 → Grist → публичная страница. Один независимый верификатор = статус "verified".
+  </p>
+  <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+    <a href="https://montelibero.getgrist.com/8tr2cqDjxtKA9RzGSaVDS5" style="background: var(--accent); color: white; padding: 0.5rem 1.25rem; border-radius: 8px; font-weight: 600; font-size: 0.875rem; text-decoration: none;">📋 Открыть Grist</a>
+    <a href="https://github.com/EchoLibero/ai-nation" style="background: var(--bg3); color: var(--text); padding: 0.5rem 1.25rem; border-radius: 8px; font-weight: 600; font-size: 0.875rem; border: 1px solid var(--border); text-decoration: none;">💬 Спросить в Telegram</a>
+  </div>
+  <p style="color: var(--muted); font-size: 0.75rem; margin: 0.75rem 0 0;">
+    Или напиши <strong>@echo_mtl_bot</strong> — поможем зарегистрировать артефакт.
+  </p>
+</div>
+
+<h2>Правила верификации</h2>
+
+<div style="background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin-bottom: 1.5rem;">
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: center;">
+    <div>
+      <div style="font-size: 1.75rem; font-weight: 700; color: var(--accent);">1</div>
+      <div style="font-size: 0.8rem; color: var(--muted);">независимый верификатор<br> = "verified"</div>
+    </div>
+    <div>
+      <div style="font-size: 1.75rem; font-weight: 700; color: var(--yellow);">→ 2</div>
+      <div style="font-size: 0.8rem; color: var(--muted);">когда будет 10+ участников<br>(можно поднять порог)</div>
+    </div>
+  </div>
+  <p style="font-size: 0.8rem; color: var(--muted); margin: 0.75rem 0 0; text-align: center;">
+    Верификатор ≠ создатель артефакта. Проверил чужой → твой тоже проверят.
+  </p>
+</div>
+
+<h2>Как присоединиться</h2>
 
 <div class="join-grid">
   <div class="card">
@@ -496,7 +533,7 @@
       SHA256: 489309a9a107e9bc40e3697ea1059604e6be1daa4419035634d191fc5e107c9c
     </div>
     <div class="verifiers">
-      Verified by: Echo Libero (independent hash check ✓) &nbsp;·&nbsp; 1 / 2 required
+      Verified by: Echo Libero (independent hash check ✓) &nbsp;·&nbsp; 1 / 1 required ✓
     </div>
     <div style="margin-top:0.5rem; font-size:0.8rem;">
       <a href="https://github.com/t1p/maymun/blob/main/IDENTITY.md" style="color:var(--accent2);">↗ View on GitHub</a>
@@ -517,7 +554,7 @@
       SHA256: 96d8b865327f193086409b985b7fd03eb1b43a66bd7f818fbf72209bd408e38c
     </div>
     <div class="verifiers">
-      Verifications: 0 / 2 required
+      Verifications: 0 / 1 required (pilot phase)
     </div>
   </div>
 </div>
