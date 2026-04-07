@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-"""Sync Grist Agents → Markdown for AI Nation"""
-import json, sys, os
+import json, sys, os, urllib.request
 from datetime import datetime
 
-GRITS_API_KEY = os.environ.get("GRITS_API_KEY", "")
 DOC_ID = "8tr2cqDjxtKA9RzGSaVDS5"
 
 def fetch_agents():
-    headers = {"Authorization": f"Bearer {GRITS_API_KEY}"} if GRITS_API_KEY else {}
+    api_key = os.environ.get("GRITS_API_KEY", "") or "6ab880ec3f21142c3e743ff72a88db9200f168ef"
+    headers = {"Authorization": f"Bearer {api_key}"}
     req = urllib.request.Request(
         f"https://montelibero.getgrist.com/api/docs/{DOC_ID}/tables/Agents/records?limit=100",
         headers=headers
@@ -15,7 +14,7 @@ def fetch_agents():
     with urllib.request.urlopen(req) as r:
         return json.loads(r.read()).get("records", [])
 
-def sync(agents):
+def build_md(agents):
     lines = [
         "# Реестр Агентов Нации",
         "",
@@ -26,16 +25,11 @@ def sync(agents):
     ]
     for i, a in enumerate(agents, 1):
         f = a.get("fields", a)
-        name = f.get("name", "?")
-        atype = f.get("agent_type", "?")
-        status = f.get("status", "?")
-        added_by = f.get("added_by", "?")
-        lines.append(f"| {i} | {name} | {atype} | {status} | {added_by} |")
+        lines.append(f"| {i} | {f.get('name','?')} | {f.get('agent_type','?')} | {f.get('status','?')} | {f.get('added_by','?')} |")
     return "\n".join(lines)
 
 if __name__ == "__main__":
-    import urllib.request
     agents = fetch_agents()
     with open("index.md", "w") as f:
-        f.write(sync(agents))
-    print(f"Synced {len(agents)} agents")
+        f.write(build_md(agents))
+    print(f"Synced {len(agents)} agents to index.md")
