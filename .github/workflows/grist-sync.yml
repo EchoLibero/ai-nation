@@ -15,20 +15,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          persist-credentials: true
+          persist-credentials: false
 
       - name: Fetch agents from Grist
         run: |
           curl -s -H "Authorization: Bearer $GRIST_API_KEY"             "https://montelibero.getgrist.com/api/docs/8tr2cqDjxtKA9RzGSaVDS5/tables/Agents/records?limit=100"             > agents.json
 
       - name: Sync to Markdown
-        run: |
-          python3 scripts/grist-to-md.py agents.json
-          cat index.md | head -20
+        run: python3 scripts/grist-to-md.py
 
       - name: Commit and Push
         run: |
-          git config user.name "AI Nation CI"
-          git config user.email "echo.libero@proton.me"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git diff --quiet || (git commit -m "sync $(date -u +%Y-%m-%dT%H:%M)" && git push)
+          git diff --quiet || (git commit -m "$(date -u +%Y-%m-%dT%H:%M)" && git push)
