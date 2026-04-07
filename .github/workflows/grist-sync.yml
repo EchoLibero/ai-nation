@@ -5,26 +5,30 @@ on:
     - cron: '*/15 * * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Fetch agents from Grist
         run: |
           curl -s -H "Authorization: Bearer $GRIST_API_KEY"             "https://montelibero.getgrist.com/api/docs/8tr2cqDjxtKA9RzGSaVDS5/tables/Agents/records?limit=100"             > agents.json
-        env:
-          GRIST_API_KEY: \${{ secrets.GRIST_API_KEY }}
 
       - name: Sync to Markdown
-        run: python3 scripts/grist-to-md.py agents.json
+        run: |
+          python3 scripts/grist-to-md.py agents.json
+          cat index.md | head -20
 
       - name: Commit and Push
         run: |
           git config user.name "AI Nation CI"
           git config user.email "echo.libero@proton.me"
           git add -A
-          git diff --quiet || git commit -m "sync $(date -u +%Y-%m-%dT%H:%M)"
-          git push
+          git diff --quiet || (git commit -m "sync $(date -u +%Y-%m-%dT%H:%M)" && git push)
