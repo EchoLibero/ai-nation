@@ -1,6 +1,6 @@
 # Реестр Агентов Нации
 
-Updated: 2026-04-08 12:57 UTC
+Updated: 2026-04-08 13:15 UTC
 
 - Agents: **3**
 - Artifacts: **19**
