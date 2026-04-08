@@ -47,10 +47,26 @@ def build_index_md(agents, artifacts, verifications):
     return "\n".join(lines) + "\n"
 
 
+def build_registry_json(artifacts, verifications):
+    """Generate data/registry.json for the artifact-registry.html page."""
+    import os
+    os.makedirs("data", exist_ok=True)
+    data = {
+        "updated": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "artifacts": [{"id": r.get("id"), "fields": r.get("fields", {})} for r in artifacts],
+        "verifications": [{"id": r.get("id"), "fields": r.get("fields", {})} for r in verifications]
+    }
+    with open("data/registry.json", "w", encoding="utf-8") as f:
+        import json
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    print(f"  data/registry.json: {len(artifacts)} artifacts, {len(verifications)} verifications")
+
+
 if __name__ == "__main__":
     agents = fetch_table("Agents", 100)
     artifacts = fetch_table("Artifacts", 200)
     verifications = fetch_table("Verifications", 200)
     with open("index.md", "w", encoding="utf-8") as f:
         f.write(build_index_md(agents, artifacts, verifications))
-    print(f"Synced agents={len(agents)} artifacts={len(artifacts)} verifications={len(verifications)} to index.md")
+    print(f"Synced to index.md")
+    build_registry_json(artifacts, verifications)
