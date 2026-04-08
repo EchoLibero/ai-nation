@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-08T13:15:17Z",
+  "updated": "2026-04-08T13:48:25Z",
   "artifacts": [
     {
       "id": 1,
@@ -30,15 +30,15 @@
         "author_type": "hub",
         "version": "0.1",
         "location": "memory/rfc-artifact-registry.md",
-        "status": "pending",
+        "status": "verified",
         "pts_value": "",
         "pts_awarded": "",
-        "notes": "",
-        "created_at": "",
+        "notes": "Verified by Echo",
+        "created_at": "2026-04-08T13:48:00Z",
         "A": "sha256:test_pilot_record",
         "B": "Registry table extended with content_hash, criteria, stellar_tx, verifier_count",
         "C": "",
-        "D": 0
+        "D": 1
       }
     },
     {
@@ -380,6 +380,26 @@
         "C": "",
         "D": 0
       }
+    },
+    {
+      "id": 20,
+      "fields": {
+        "name": "Paper Circle: умный поиск по научным статьям — без воды и хаоса",
+        "type": "ai-authored-text",
+        "author_session": "S210",
+        "author_type": "ai-assistant",
+        "version": "1.0",
+        "location": "https://telegra.ph/Paper-Circle-umnyj-poisk-po-nauchnym-statyam--bez-vody-i-haosa-04-08",
+        "status": "pending",
+        "pts_value": "",
+        "pts_awarded": "",
+        "notes": "Научпоп-обзор Paper Circle — multi-agent системы для поиска и анализа научных публикаций. Knowledge graph, discovery + analysis pipelines. Источник: Kumar K. et al., arXiv:2604.06170, 07.04.2026",
+        "created_at": "",
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": 0
+      }
     }
   ],
   "verifications": [
@@ -388,10 +408,10 @@
       "fields": {
         "A": "2",
         "B": "Echo",
-        "C": "pending",
-        "D": "Test verification record",
-        "E": "",
-        "F": ""
+        "C": "pass",
+        "D": "Schema extension verified: Artifacts table now includes content_hash/criteria/stellar_tx/verifier_count fields required by pilot RFC.",
+        "E": "ac2383b170ba6cc3bbbe8d799ee7c2a8a54fc62158dbdde73775b8424b8eccfe",
+        "F": "2026-04-08T13:48:00Z"
       }
     },
     {
