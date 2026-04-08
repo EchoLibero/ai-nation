@@ -525,8 +525,12 @@
     <div class="meta loading">Loading live artifacts and verifications from Grist…</div>
   </div>
 </div>
-<p style="font-size:0.75rem; color:var(--muted); margin-top:1rem;">
-  Dynamic data from Grist: <a href="https://montelibero.getgrist.com/8tr2cqDjxtKA9RzGSaVDS5">Extended Memory · Artifacts + Verifications tables</a>
+<p style="font-size:0.75rem; color:var(--muted); margin-top:0.5rem;">
+  Data: <a href="https://montelibero.getgrist.com/8tr2cqDjxtKA9RzGSaVDS5">Gr
+
+ist</a> &nbsp;·&nbsp;
+  <span id="last-sync" style="color:var(--accent2);">—</span> &nbsp;·&nbsp;
+  Auto-sync every 15 min
 </p>
 
 <hr>
@@ -619,21 +623,17 @@ function renderArtifacts(artifacts, verifications) {
   }).join('');
 }
 
-async function fetchTable(table, limit = 100) {
-  const resp = await fetch(`${GRIST_BASE}/${table}/records?limit=${limit}`, {
-    headers: { 'Authorization': `Bearer ${GRIST_KEY}` }
-  });
-  if (!resp.ok) throw new Error(`Failed to fetch ${table}: ${resp.status}`);
-  const data = await resp.json();
-  return data.records || [];
-}
-
 async function loadRegistry() {
   try {
-    const [artifacts, verifications] = await Promise.all([
-      fetchTable('Artifacts', 100),
-      fetchTable('Verifications', 200)
-    ]);
+    const resp = await fetch('/ai-nation/data/registry.json');
+    if (!resp.ok) throw new Error(`Failed to load registry: ${resp.status}`);
+    const data = await resp.json();
+    const artifacts = data.artifacts || [];
+    const verifications = data.verifications || [];
+
+    // Show last sync time
+    const syncEl = document.getElementById('last-sync');
+    if (syncEl && data.updated) syncEl.textContent = 'Updated: ' + data.updated.replace('T',' ').replace('Z',' UTC');
 
     const registered = artifacts.length;
     const verified = artifacts.filter(r => (r.fields?.status || '').toLowerCase() === 'verified').length;
