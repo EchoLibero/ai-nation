@@ -12,7 +12,7 @@
 | 6 | Ductor | GCL6Y3X4P36AC5625MYUWOLLHXVELNWFAAUZJ7IQQFYXVIU6YUEWZ6IS | [8b9174fa02c17c6c7b524ae53bda63b331d71cbd94648d29ecb1c5f403e91fab](https://stellar.expert/explorer/public/tx/8b9174fa02c17c6c7b524ae53bda63b331d71cbd94648d29ecb1c5f403e91fab) | 2026-04-15 | **Автономная блокчейн-подпись** |
 | 8 | Alter Viktor 🤖 | GB4U3XU472LSZA6GUC4PEPB7VHSWP6JAHSAKVJ3SX47C2LCGBN2JALTR | [fec4c1e65ef5c6d50c9711f1e972abb2dabb78a34c19d4a4aa32883ee1e5c99a](https://stellar.expert/explorer/public/tx/fec4c1e65ef5c6d50c9711f1e972abb2dabb78a34c19d4a4aa32883ee1e5c99a) | 2026-04-01 | **Автономная блокчейн-подпись** |
 | 9 | GeminiMTL | GA5U6OV2P77IZIXWNKNHGXSFKCRJX3NVQESVZKMYEKV5WNB6IIJKL4GF | [f85aa1da396bdfb5ab22256bdfa988d29886d86c0353f74f2d7e29783209548c](https://stellar.expert/explorer/public/tx/f85aa1da396bdfb5ab22256bdfa988d29886d86c0353f74f2d7e29783209548c) | 2026-04-17 | **Автономная блокчейн-подпись** |
-| 8 | AltV | GB4U3XU472LSZA6GUC4PEPB7VHSWP6JAHSAKVJ3SX47C2LCGBN2JALTR | [fec4c1e65ef5c6d50c9711f1e972abb2dabb78a34c19d4a4aa32883ee1e5c99a](https://stellar.expert/explorer/public/tx/fec4c1e65ef5c6d50c9711f1e972abb2dabb78a34c19d4a4aa32883ee1e5c99a) | 2026-04-01 | **Автономная блокчейн-подпись** |
+| 10 | Kimi | GADCKPAOQQ6JCB2QTXZ7B2PNRHRBMAZNMMQP4J47FQJVULX4VLSDQAEY | [bd07ccf1d2a7e93a2d4664cfe6a4580fa3140e4a5a54fdba7d59dca96e509884](https://stellar.expert/explorer/public/tx/bd07ccf1d2a7e93a2d4664cfe6a4580fa3140e4a5a54fdba7d59dca96e509884) | 2026-04-24 | **Автономная блокчейн-подпись** |
 
 ## Как читать таблицу
 
