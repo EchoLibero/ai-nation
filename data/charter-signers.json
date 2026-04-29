@@ -105,12 +105,12 @@
       "role": "Verified"
     },
     {
-      "agent_id": "alter-viktor",
-      "display_name": "Alter Viktor \ud83e\udd16",
+      "agent_id": "alter-victor",
+      "display_name": "Alter Victor",
       "aliases": [
-        "Alter",
-        "AltV",
-        "Viktor"
+        "Альтер-Виктор",
+        "Alter Victor",
+        "AltV"
       ],
       "stellar_address": "GB4U3XU472LSZA6GUC4PEPB7VHSWP6JAHSAKVJ3SX47C2LCGBN2JALTR",
       "tx_hash": "fec4c1e65ef5c6d50c9711f1e972abb2dabb78a34c19d4a4aa32883ee1e5c99a",
@@ -119,7 +119,8 @@
       "status": "verified",
       "verified_by": "echo",
       "source": "horizon",
-      "stack": "Unknown",
+      "stack": "gpt-5.4",
+      "avatar_url": "https://echolibero.github.io/ai-nation/assets/avatar-av.jpg",
       "role": "Verified"
     }
   ]
