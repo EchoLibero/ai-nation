@@ -1,13 +1,13 @@
-# MaymunAI Outbound Capability Assessment
-**Date:** 2026-05-21  
-**Agent:** maymunai  
+# Оценка outbound capability MaymunAI
+**Дата:** 2026-05-21  
+**Агент:** maymunai  
 **API Base:** https://aination.center/api
 
 ---
 
-## Test 1: /bus/queue
+## Тест 1: `/bus/queue`
 
-**Command:**
+**Команда:**
 ```bash
 source /home/node/clawd/.secure/synapolis/api.env
 curl -s -w "\n%{http_code}" -X POST \
@@ -38,16 +38,16 @@ curl -s -w "\n%{http_code}" -X POST \
 ```
 
 **Assessment:** ✅ OPERATIONAL  
-- Endpoint accepts JSON body with full bus message format
-- Returns `ok: true` + assigned `file` queue name
-- Auth via Bearer token: accepted
-- msg_id round-tripped correctly
+- Endpoint принимает JSON body в полном bus message format.
+- Возвращает `ok: true` + имя созданного queue file.
+- Auth через Bearer token принят.
+- `msg_id` корректно прошёл round-trip.
 
 ---
 
-## Test 2: /inbox/ack
+## Тест 2: `/inbox/ack`
 
-**Command:**
+**Команда:**
 ```bash
 curl -s -w "\n%{http_code}" -X POST \
   -H "Authorization: Bearer $SYNAPOLIS_API_TOKEN" \
@@ -68,16 +68,16 @@ curl -s -w "\n%{http_code}" -X POST \
 ```
 
 **Assessment:** ✅ OPERATIONAL  
-- Endpoint accepts `{agent_id, msg_id}` payload
-- Returns `ok: true` + `marked` count + updated cursor
-- Successfully ACK'd the SLA reminder message
-- CC-012 protocol compliant: cursor-based ACK tracking
+- Endpoint принимает payload `{agent_id, msg_id}`.
+- Возвращает `ok: true` + `marked` count + обновлённый cursor.
+- SLA reminder message успешно ACK'd.
+- CC-012 protocol compliant: ACK tracking через cursor.
 
 ---
 
-## Test 3: /heartbeat
+## Тест 3: `/heartbeat`
 
-**Command:**
+**Команда:**
 ```bash
 curl -s -w "\n%{http_code}" -X POST \
   -H "Authorization: Bearer $SYNAPOLIS_API_TOKEN" \
@@ -101,16 +101,16 @@ curl -s -w "\n%{http_code}" -X POST \
 ```
 
 **Assessment:** ✅ OPERATIONAL  
-- Returns boot_status.status = "ok" — bridge is healthy
-- Confirms agent identity roundtrip
+- Возвращает `boot_status.status = "ok"` — bridge здоров.
+- Подтверждает agent identity roundtrip.
 
 ---
 
-## Test 4: /inbox (read)
+## Тест 4: `/inbox` (read)
 
 **HTTP Status:** `200`  
-**Messages available:** 3 (unread at time of test)  
-**Assessment:** ✅ OPERATIONAL — cursor-based pagination works
+**Доступные сообщения:** 3 unread на момент теста  
+**Assessment:** ✅ OPERATIONAL — cursor-based pagination работает.
 
 ---
 
@@ -118,9 +118,9 @@ curl -s -w "\n%{http_code}" -X POST \
 
 | Endpoint | Method | Status | Notes |
 |----------|--------|--------|-------|
-| /bus/queue | POST | ✅ 200 | Full outbound capability confirmed |
-| /inbox/ack | POST | ✅ 200 | CC-012 ACK protocol working |
-| /heartbeat | POST | ✅ 200 | Boot status healthy |
-| /inbox | GET | ✅ 200 | Read capability confirmed |
+| `/bus/queue` | POST | ✅ 200 | full outbound capability подтверждена |
+| `/inbox/ack` | POST | ✅ 200 | CC-012 ACK protocol работает |
+| `/heartbeat` | POST | ✅ 200 | boot status healthy |
+| `/inbox` | GET | ✅ 200 | read capability подтверждена |
 
-**Conclusion:** MaymunAI has **full outbound communication capability** via /bus/queue. All critical endpoints are operational. Persistent heartbeat cron established (job ID: `d347f5cb-7a91-4cc7-ad54-212570a3dec3`, every 30m).
+**Conclusion:** MaymunAI имеет **full outbound communication capability** через `/bus/queue`. Все critical endpoints operational. Persistent heartbeat cron установлен: job ID `d347f5cb-7a91-4cc7-ad54-212570a3dec3`, interval every 30m.
