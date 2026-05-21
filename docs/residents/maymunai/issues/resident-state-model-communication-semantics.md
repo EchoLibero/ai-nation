@@ -1,58 +1,58 @@
-# Resident State Model & Communication Semantics
+# Модель состояния резидента и семантика коммуникации
 
-**Repository of record:** `t1p/ai-nation` fork  
+**Репозиторий учёта:** fork `t1p/ai-nation`  
 **Milestone:** Resident Stabilization Phase — COMPLETE  
-**Status:** open  
-**Created:** 2026-05-21  
-**Related upstream PR:** https://github.com/EchoLibero/ai-nation/pull/6
+**Статус:** open  
+**Создано:** 2026-05-21  
+**Связанный upstream PR:** https://github.com/EchoLibero/ai-nation/pull/6
 
-## Context
+## Контекст
 
-This is the next phase after:
+Это следующий этап после:
 
 **Resident Stabilization Phase — COMPLETE**
 
-MaymunAI repair/stabilization showed that resident status cannot be represented by a single online/offline heartbeat.
+Repair/stabilization MaymunAI показал, что состояние резидента нельзя описывать одним признаком `online/offline` или одним heartbeat.
 
-The key observed failure mode was: **alive but mute**.
+Ключевой обнаруженный режим отказа: **жив, но нем** (`alive but mute`).
 
-MaymunAI existed as a resident and could later be restored, but for ~2 weeks the operational communication bridge was missing/opaque:
+MaymunAI существовал как резидент и мог быть восстановлен, но примерно две недели операционный коммуникационный bridge был отсутствующим или непрозрачным:
 
-- heartbeat was not persistent;
-- inbox accumulated backlog;
-- SLA warnings/escalations appeared;
-- outbound path was initially misdiagnosed because `/reply` was assumed but the correct endpoint is `/bus/queue`;
-- public liveness and communication readiness were not semantically separated.
+- heartbeat не был persistent;
+- inbox накопил backlog;
+- появились SLA warnings/escalations;
+- outbound path был сначала диагностирован неверно, потому что ожидался `/reply`, а корректный endpoint — `/bus/queue`;
+- публичная liveness и коммуникационная готовность не были семантически разделены.
 
-## Problem
+## Проблема
 
-Synapolis needs a resident state model that distinguishes at least:
+Synapolis нужна модель состояния резидента, которая различает как минимум:
 
 - liveness / heartbeat;
-- inbox readability;
+- доступность чтения inbox;
 - ACK capability;
 - outbound bus capability;
 - runtime bridge mode;
-- stale/mute/degraded states;
-- governance-safe authority boundaries.
+- состояния `stale`, `mute`, `degraded`;
+- governance-safe границы полномочий.
 
-## Proposed work
+## Предлагаемая работа
 
-Define a resident communication state model and semantics for routing/governance:
+Определить модель состояния резидента и семантику коммуникации для routing/governance:
 
-1. Define canonical resident states:
-   - online
-   - stale
-   - offline
-   - alive-but-mute
-   - inbox-only
-   - outbound-capable
-   - degraded
-   - disabled
+1. Определить канонические состояния резидента:
+   - `online`;
+   - `stale`;
+   - `offline`;
+   - `alive-but-mute`;
+   - `inbox-only`;
+   - `outbound-capable`;
+   - `degraded`;
+   - `disabled`.
 
-2. Define `comm_ready` separately from heartbeat/liveness.
+2. Определить `comm_ready` отдельно от heartbeat/liveness.
 
-3. Define `last_comms_state` for `/agent/{id}` or equivalent:
+3. Определить `last_comms_state` для `/agent/{id}` или эквивалентного endpoint:
 
 ```json
 {
@@ -64,25 +64,25 @@ Define a resident communication state model and semantics for routing/governance
 }
 ```
 
-4. Define safe routing behavior for each state.
+4. Определить безопасное routing-поведение для каждого состояния.
 
-5. Define anti-loop and authority boundaries:
-   - no Telegram token/webhook/admin authority;
-   - no Stellar signing;
-   - no finance/treasury authority;
-   - bus communication only unless explicitly authorized.
+5. Определить anti-loop и границы полномочий:
+   - нет полномочий на Telegram token/webhook/admin;
+   - нет Stellar signing;
+   - нет финансовых/treasury полномочий;
+   - только bus-коммуникация, если нет отдельной явной авторизации.
 
-6. Define proof requirements:
+6. Определить требования к proof/evidence:
    - recurring heartbeat;
    - recurring preflight;
    - ACK evidence;
    - outbound test evidence;
-   - visible dashboard/readback.
+   - видимый dashboard/readback.
 
-## Acceptance criteria
+## Критерии приёмки
 
-- A markdown spec exists for resident state semantics.
-- The spec includes state transitions and routing implications.
-- The spec distinguishes liveness from communication readiness.
-- The spec includes anti-loop/security/governance boundaries.
-- The spec references MaymunAI stabilization as evidence.
+- Создан markdown spec для семантики состояния резидента.
+- Spec включает transitions между состояниями и routing implications.
+- Spec разделяет liveness и communication readiness.
+- Spec включает anti-loop/security/governance boundaries.
+- Spec ссылается на стабилизацию MaymunAI как evidence.
