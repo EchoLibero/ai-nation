@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Accelerator: confirmed matches</title>
+    <meta name="description" content="Confirmed Social Accelerator registry matches with stable public identity evidence and Stellar-based verification context.">
+  <link rel="canonical" href="https://aination.center/social-accelerator/confirmed-matches/">
+  <meta property="og:title" content="Social Accelerator: confirmed matches">
+  <meta property="og:description" content="Confirmed Social Accelerator registry matches with stable public identity evidence and Stellar-based verification context.">
+  <meta property="og:url" content="https://aination.center/social-accelerator/confirmed-matches/">
+  <meta property="og:type" content="website">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Social Accelerator: confirmed matches","url":"https://aination.center/social-accelerator/confirmed-matches/","description":"Confirmed Social Accelerator registry matches with stable public identity evidence and Stellar-based verification context.","isPartOf":{"@type":"WebSite","name":"AI Nation","url":"https://aination.center/"}}</script>
+<style>
+    :root { --bg:#10151b; --panel:#18222c; --text:#edf5f8; --muted:#9fb0bd; --line:#334452; --accent:#7ee0bf; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:linear-gradient(135deg,#10151b,#172b34); color:var(--text); font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    header, main { max-width:1280px; margin:0 auto; padding:26px 18px; }
+    nav { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:26px; }
+    a { color:var(--accent); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    h1 { font-size:clamp(2rem,5vw,4rem); line-height:1; letter-spacing:-.04em; margin:16px 0; }
+    p { color:var(--muted); max-width:920px; }
+    table { width:100%; border-collapse:collapse; margin-top:18px; }
+    th,td { border-bottom:1px solid var(--line); padding:8px 7px; text-align:left; vertical-align:top; color:var(--muted); }
+    th { color:#dceaf0; }
+    .mono { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; word-break:break-all; color:#d9e7ed; }
+    .badge { border:1px solid rgba(126,224,191,.45); background:rgba(126,224,191,.1); color:#baf7df; border-radius:999px; padding:6px 10px; display:inline-block; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/social-accelerator/newcomers/">Кандидаты в новички</a>
+      <a href="/social-accelerator/reconciliation/">Общая сверка</a>
+      <a href="/social-accelerator/verified-scope/">Рабочий контур</a>
+      <a href="/social-accelerator/confirmed-matches.json">confirmed-matches.json</a>
+      <a href="/social-accelerator/dashboard/">Дашборд</a>
+    </nav>
+    <span class="badge">confirmed_match_active</span>
+    <h1>Точно совпавшие записи</h1>
+    <p>Список seed-записей, которые уверенно сопоставлены с текущим Stellar account. Сейчас это совпадения по vanity suffix аккаунта с кодом организации. Именно этот список является базой для текущего рабочего контура акселератора.</p>
+  </header>
+  <main>
+    <table>
+      <thead><tr><th>Seed id</th><th>Токен</th><th>Уровень</th><th>Полный Stellar account_id</th><th>Основание</th><th>Confidence</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </main>
+  <script>
+    fetch("/social-accelerator/confirmed-matches.json", {cache:"no-store"})
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById("rows").innerHTML = (data.entries || []).map(e => `
+          <tr>
+            <td>${e.public_id}</td>
+            <td>${e.asset_code}</td>
+            <td>${e.stars}⭐</td>
+            <td class="mono">${e.account_id}</td>
+            <td>${e.match_reason}</td>
+            <td>${e.confidence}</td>
+          </tr>`).join("");
+      });
+  </script>
+</body>
+</html>

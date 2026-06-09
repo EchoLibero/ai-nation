@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Accelerator: рабочий контур</title>
+    <meta name="description" content="Verified working scope for the Social Accelerator, limited to entities with stable public identity evidence.">
+  <link rel="canonical" href="https://aination.center/social-accelerator/verified-scope/">
+  <meta property="og:title" content="Social Accelerator: рабочий контур">
+  <meta property="og:description" content="Verified working scope for the Social Accelerator, limited to entities with stable public identity evidence.">
+  <meta property="og:url" content="https://aination.center/social-accelerator/verified-scope/">
+  <meta property="og:type" content="website">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Social Accelerator: рабочий контур","url":"https://aination.center/social-accelerator/verified-scope/","description":"Verified working scope for the Social Accelerator, limited to entities with stable public identity evidence.","isPartOf":{"@type":"WebSite","name":"AI Nation","url":"https://aination.center/"}}</script>
+<style>
+    :root { --bg:#10151b; --panel:#18222c; --text:#edf5f8; --muted:#9fb0bd; --line:#334452; --accent:#7ee0bf; --warn:#f2b84b; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:linear-gradient(135deg,#10151b,#172b34); color:var(--text); font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    header, main { max-width:1280px; margin:0 auto; padding:26px 18px; }
+    nav { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:26px; }
+    a { color:var(--accent); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    h1 { font-size:clamp(2rem,5vw,4rem); line-height:1; letter-spacing:-.04em; margin:16px 0; }
+    p { color:var(--muted); max-width:960px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; margin:24px 0; }
+    .card { background:rgba(24,34,44,.92); border:1px solid var(--line); border-radius:16px; padding:16px; }
+    .num { font-size:2rem; font-weight:760; letter-spacing:-.03em; }
+    .label { color:var(--muted); font-size:.92rem; }
+    table { width:100%; border-collapse:collapse; margin-top:18px; }
+    th,td { border-bottom:1px solid var(--line); padding:8px 7px; text-align:left; vertical-align:top; color:var(--muted); }
+    th { color:#dceaf0; }
+    .mono { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; word-break:break-all; color:#d9e7ed; }
+    .badge { border:1px solid rgba(126,224,191,.45); background:rgba(126,224,191,.1); color:#baf7df; border-radius:999px; padding:6px 10px; display:inline-block; }
+    .note { border:1px solid rgba(242,184,75,.35); background:rgba(242,184,75,.08); border-radius:16px; padding:14px 16px; color:#f6d38b; margin-top:16px; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/social-accelerator/dashboard/">Дашборд</a>
+      <a href="/social-accelerator/verified-scope.json">verified-scope.json</a>
+      <a href="/social-accelerator/confirmed-matches/">Точные совпадения</a>
+      <a href="/social-accelerator/newcomers/">Кандидаты на сверку</a>
+      <a href="/social-accelerator/reconciliation/">Общая сверка</a>
+    </nav>
+    <span class="badge">stable verified identity only</span>
+    <h1>Рабочий контур акселератора</h1>
+    <p>Этот список ограничивает работу Social Accelerator только записями, где старая идентичность из seed-реестра и текущий Stellar account связаны устойчивым проверяемым признаком. Кандидаты, вероятные совпадения и конфликтные записи не входят в рабочий контур до ручного подтверждения.</p>
+    <div class="note">MTLAP-физики пока не включены: для них нет надёжного публичного правила сопоставления handle/person ↔ Stellar account. Они остаются задачей отдельной ручной сверки.</div>
+  </header>
+  <main>
+    <div class="grid" id="stats"></div>
+    <table>
+      <thead><tr><th>Seed id</th><th>Токен</th><th>Уровень</th><th>Полный Stellar account_id</th><th>Основание</th><th>Confidence</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </main>
+  <script>
+    fetch("/social-accelerator/verified-scope.json", {cache:"no-store"})
+      .then(r => r.json())
+      .then(data => {
+        const byAsset = data.counts_by_asset || {};
+        const cards = [["Всего в рабочем контуре", data.count || 0]]
+          .concat(Object.entries(byAsset).map(([asset, stats]) => [`${asset}`, stats.count || 0]));
+        document.getElementById("stats").innerHTML = cards.map(([label,num]) => `<div class="card"><div class="num">${num}</div><div class="label">${label}</div></div>`).join("");
+        document.getElementById("rows").innerHTML = (data.entries || []).map(e => `
+          <tr>
+            <td>${e.public_id}</td>
+            <td>${e.asset_code}</td>
+            <td>${e.stars}⭐</td>
+            <td class="mono">${e.account_id}</td>
+            <td>${e.match_reason}</td>
+            <td>${e.confidence}</td>
+          </tr>`).join("");
+      });
+  </script>
+</body>
+</html>

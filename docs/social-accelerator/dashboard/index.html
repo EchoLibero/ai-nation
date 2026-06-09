@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Социальный акселератор: мониторинг реестра</title>
+    <link rel="canonical" href="https://aination.center/social-accelerator/dashboard/">
+  <meta property="og:title" content="Социальный акселератор: мониторинг реестра">
+  <meta property="og:description" content="Социальный акселератор: мониторинг реестра: public Social Accelerator registry and verification surface for Montelibero resident accounting.">
+  <meta property="og:url" content="https://aination.center/social-accelerator/dashboard/">
+  <meta property="og:type" content="website">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Социальный акселератор: мониторинг реестра","url":"https://aination.center/social-accelerator/dashboard/","description":"Социальный акселератор: мониторинг реестра: public Social Accelerator registry and verification surface for Montelibero resident accounting.","isPartOf":{"@type":"WebSite","name":"AI Nation","url":"https://aination.center/"}}</script>
+<meta name="description" content="Мониторинг реестра участников социального акселератора AI Nation / Montelibero.">
+  <style>
+    :root { --bg:#101418; --panel:#172028; --panel2:#202b35; --text:#eef4f8; --muted:#9fb0bd; --line:#2f3d49; --accent:#53c6a2; --warn:#f2b84b; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:linear-gradient(135deg,#101418,#18222b 55%,#10251f); color:var(--text); font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    header, main { max-width:1180px; margin:0 auto; padding:28px 18px; }
+    nav { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:30px; }
+    a { color:#7ee0bf; text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    h1 { font-size:clamp(2rem,5vw,4.4rem); line-height:1; margin:18px 0; letter-spacing:-.04em; }
+    h2 { margin:0 0 14px; font-size:1.35rem; }
+    p { color:var(--muted); max-width:850px; }
+    .badge { display:inline-flex; padding:6px 10px; border:1px solid rgba(83,198,162,.45); color:#a7f3d0; border-radius:999px; background:rgba(83,198,162,.1); font-size:.85rem; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin:24px 0; }
+    .card, section { background:rgba(23,32,40,.9); border:1px solid var(--line); border-radius:18px; padding:18px; box-shadow:0 16px 40px rgba(0,0,0,.18); }
+    .num { font-size:2rem; font-weight:760; letter-spacing:-.03em; }
+    .label { color:var(--muted); font-size:.92rem; }
+    .warn { color:var(--warn); }
+    .controls { display:flex; gap:10px; flex-wrap:wrap; margin:12px 0 18px; }
+    input, select { background:var(--panel2); color:var(--text); border:1px solid var(--line); border-radius:10px; padding:10px 12px; min-width:160px; }
+    table { width:100%; border-collapse:collapse; overflow:hidden; border-radius:12px; }
+    th, td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+    th { color:#d8e7ee; font-size:.88rem; }
+    td { color:var(--muted); }
+    .tags { display:flex; gap:5px; flex-wrap:wrap; }
+    .tag { border:1px solid var(--line); background:var(--panel2); border-radius:999px; padding:2px 7px; color:#d5e2e8; font-size:.82rem; }
+    .stars { color:#ffd166; white-space:nowrap; }
+    footer { color:var(--muted); text-align:center; padding:28px 18px 40px; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/social-accelerator">Социальный акселератор</a>
+      <a href="/social-accelerator/registry.json">registry.json</a>
+      <a href="/social-accelerator/onchain-levels.json">onchain-levels.json</a>
+      <a href="/social-accelerator/stellar-check.json">stellar-check.json</a>
+      <a href="/social-accelerator/stellar-reconciliation.json">reconciliation.json</a>
+      <a href="/social-accelerator/reconciliation/">Reconciliation page</a>
+      <a href="/social-accelerator/newcomers/">Newcomers</a>
+      <a href="/social-accelerator/confirmed-matches/">Confirmed matches</a>
+      <a href="/social-accelerator/verified-scope/">Verified scope</a>
+      <a href="/social-accelerator/account-activity.json">account-activity.json</a>
+      <a href="https://github.com/Montelibero/MTLA-Documents/blob/main/Internal/ProjectsAndPrograms/SocialEntrepreneurshipAccelerator.ru.md">целевая программа</a>
+      <a href="https://wiki.aination.center/wiki/Монтелиберо/Реестр_резидентов">Wiki-реестр</a>
+      <a href="https://wiki.aination.center/wiki/Социальный_акселератор">Wiki-страница</a>
+      <a href="/">AI Nation</a>
+    </nav>
+    <span class="badge">реестр: черновой мониторинг свежести</span>
+    <h1>Мониторинг реестра социального акселератора</h1>
+      <p>Эта панель отделяет устаревшую первичку от текущего реестра. Свежий слой берётся из Stellar по токенам MTLAP/MTLAC; старый список остаётся справочным слоем для сопоставления и сверки. Рабочий контур акселератора ограничен записями с устойчивой проверяемой идентичностью.</p>
+  </header>
+  <main>
+    <section>
+      <h2>Первый этап</h2>
+      <p>Задача текущей редакции — первичный учёт резидентов Монтелиберо: физических лиц <strong>MTLAP</strong> и организаций <strong>MTLAC</strong>. Это статическая модель состава и классификации, а не актуальный текущий реестр.</p>
+      <p>Важно: первичка, по которой собрана эта редакция, уже устарела. Сверка <a href="/social-accelerator/source-check.json">source-check.json</a> подтверждает внутреннюю согласованность старого snapshot, но не текущий состав резидентов.</p>
+    </section>
+    <div class="grid" id="stats"></div>
+    <section>
+      <h2>Легенда MTLAP</h2>
+      <div class="grid">
+        <div class="card"><h3>5⭐ Donors</h3><p>Доноры Ассоциации.</p></div>
+        <div class="card"><h3>4⭐ Activists</h3><p>Активисты Ассоциации.</p></div>
+        <div class="card"><h3>3⭐ Creditworthy</h3><p>Кредитоспособные участники Ассоциации.</p></div>
+        <div class="card"><h3>2⭐ Verified voting</h3><p>Проверенные участники с правом решающего голоса.</p></div>
+        <div class="card"><h3>1⭐ Advisory vote</h3><p>Участники с правом совещательного голоса.</p></div>
+      </div>
+    </section>
+    <section>
+      <h2>Легенда MTLAC</h2>
+      <div class="grid">
+        <div class="card"><h3>4⭐ Donors</h3><p>Организации-доноры Ассоциации.</p></div>
+        <div class="card"><h3>3⭐ Significant partners</h3><p>Значимые социальные партнёры Ассоциации.</p></div>
+        <div class="card"><h3>2⭐ Safety standards</h3><p>Организации, внедряющие добровольные стандарты безопасности услуг.</p></div>
+        <div class="card"><h3>1⭐ Community residents</h3><p>Корпоративные участники — резиденты сообщества.</p></div>
+      </div>
+    </section>
+    <section>
+      <h2>Теги карты</h2>
+      <div class="grid">
+        <div class="card"><h3>A</h3><p>Вспомогательный профиль пользователя в Agora.</p></div>
+        <div class="card"><h3>IA</h3><p>Институты Ассоциации.</p></div>
+        <div class="card"><h3>PC</h3><p>Координаторы программ.</p></div>
+        <div class="card"><h3>FC</h3><p>Фракции.</p></div>
+        <div class="card"><h3>CG</h3><p>Черногория.</p></div>
+        <div class="card"><h3>Citi</h3><p>Физические резиденты Montelibero City.</p></div>
+        <div class="card"><h3>PG</h3><p>Профессиональные гильдии.</p></div>
+        <div class="card"><h3>Fm</h3><p>Семьи.</p></div>
+        <div class="card"><h3>Bs</h3><p>Бизнес.</p></div>
+        <div class="card"><h3>Si</h3><p>Социальные инициативы.</p></div>
+        <div class="card"><h3>Ts</h3><p>Казначей.</p></div>
+        <div class="card"><h3>AGERIS</h3><p>Специальный тег, сохранённый из исходной карты для записи Ageris.</p></div>
+      </div>
+    </section>
+    <section>
+      <h2>Stellar-слой</h2>
+      <p id="stellar-note">Загрузка on-chain данных...</p>
+      <p>Текущие списки уровней по держателям токенов: <a href="/social-accelerator/onchain-levels.json">onchain-levels.json</a>. Проверка Stellar-снимка: <a href="/social-accelerator/stellar-check.json">stellar-check.json</a>.</p>
+      <p>Черновая сверка seed-реестра с текущими держателями Stellar: <a href="/social-accelerator/stellar-reconciliation.json">stellar-reconciliation.json</a>.</p>
+      <p>Удобная страница для ручной работы с новичками и конфликтами: <a href="/social-accelerator/reconciliation/">/social-accelerator/reconciliation/</a>.</p>
+      <p>Отдельный список только новичков с полными Stellar-адресами: <a href="/social-accelerator/newcomers/">/social-accelerator/newcomers/</a>.</p>
+      <p>Точно совпавшие seed-записи и Stellar-аккаунты: <a href="/social-accelerator/confirmed-matches/">/social-accelerator/confirmed-matches/</a>.</p>
+      <p>Рабочий контур акселератора только по устойчиво верифицируемым идентичностям: <a href="/social-accelerator/verified-scope/">/social-accelerator/verified-scope/</a>.</p>
+      <p>Метка активности счетов рабочего контура: <a href="/social-accelerator/account-activity.json">account-activity.json</a>.</p>
+      <div class="grid" id="stellar-stats"></div>
+      <div class="controls">
+        <select id="asset"><option value="MTLAC">MTLAC</option><option value="MTLAP">MTLAP</option></select>
+        <select id="positive"><option value="1">Только положительный баланс</option><option value="">Все trustline-записи</option></select>
+      </div>
+      <table>
+        <thead><tr><th>Аккаунт</th><th>Токен</th><th>Баланс</th><th>Авторизация</th><th>Обновление</th></tr></thead>
+        <tbody id="stellar-rows"></tbody>
+      </table>
+    </section>
+    <section>
+      <h2>Активность счетов рабочего контура</h2>
+      <p>Метка активности отделяет живые счета от пассивных внутри текущего verified scope. Счёт считается активным, если в Stellar найдена self-authored операция за последние 31 день.</p>
+      <div class="grid" id="activity-stats"></div>
+      <table>
+        <thead><tr><th>Код</th><th>Токен</th><th>Уровень</th><th>Активность</th><th>Последняя self-authored операция</th><th>Аккаунт</th></tr></thead>
+        <tbody id="activity-rows"></tbody>
+      </table>
+    </section>
+    <section>
+      <h2>Устаревшая первичка для сопоставления</h2>
+      <div class="controls">
+        <input id="q" placeholder="Поиск по коду">
+        <select id="stars"><option value="">Все уровни</option><option value="4">4 звезды</option><option value="3">3 звезды</option><option value="2">2 звезды</option><option value="1">1 звезда</option></select>
+        <select id="tag"><option value="">Все теги</option></select>
+      </div>
+      <table>
+        <thead><tr><th>Код</th><th>Класс</th><th>Уровень</th><th>Теги</th><th>Сверка</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </section>
+  </main>
+  <footer>AI Nation / Montelibero · данные требуют сверки со свежим источником</footer>
+  <script>
+    const fallback = {"entries":[],"tags":{},"registry_status":"not_loaded"};
+    const stellarFallback = {"assets":{},"source_status":"not_loaded"};
+    const starText = n => "⭐".repeat(Number(n || 0));
+    const statusText = s => s === "needs_refresh" ? "требует сверки" : s;
+    async function loadRegistry() {
+      try {
+        const res = await fetch("/social-accelerator/registry.json", {cache:"no-store"});
+        if (!res.ok) throw new Error(res.status);
+        return await res.json();
+      } catch (_) {
+        return fallback;
+      }
+    }
+    async function loadStellar() {
+      try {
+        const res = await fetch("/social-accelerator/stellar-registry.json", {cache:"no-store"});
+        if (!res.ok) throw new Error(res.status);
+        return await res.json();
+      } catch (_) {
+        return stellarFallback;
+      }
+    }
+    async function loadActivity() {
+      try {
+        const res = await fetch("/social-accelerator/account-activity.json", {cache:"no-store"});
+        if (!res.ok) throw new Error(res.status);
+        return await res.json();
+      } catch (_) {
+        return {"counts":{},"entries":[]};
+      }
+    }
+    function renderStats(data) {
+      const entries = data.entries || [];
+      const byStars = entries.reduce((acc,e)=>{ acc[e.stars]=(acc[e.stars]||0)+1; return acc; }, {});
+      const needs = entries.filter(e => e.verification_status === "needs_refresh").length;
+      const tags = new Set(entries.flatMap(e => e.tags || []));
+      document.getElementById("stats").innerHTML = [
+        ["Записей", entries.length],
+        ["Организаций MTLAC", entries.filter(e=>e.class==="MTLAC").length],
+        ["Требуют сверки", needs],
+        ["Тегов", tags.size],
+        ["4 звезды", byStars[4] || 0],
+        ["3 звезды", byStars[3] || 0],
+        ["1-2 звезды", (byStars[1] || 0) + (byStars[2] || 0)]
+      ].map(([label,num]) => `<div class="card"><div class="num">${num}</div><div class="label">${label}</div></div>`).join("");
+    }
+    function renderRows(data) {
+      const q = document.getElementById("q").value.trim().toLowerCase();
+      const stars = document.getElementById("stars").value;
+      const tag = document.getElementById("tag").value;
+      const rows = (data.entries || []).filter(e =>
+        (!q || e.id.toLowerCase().includes(q)) &&
+        (!stars || String(e.stars) === stars) &&
+        (!tag || (e.tags || []).includes(tag))
+      );
+      document.getElementById("rows").innerHTML = rows.map(e => `
+        <tr>
+          <td><strong>${e.id}</strong></td>
+          <td>${e.class}</td>
+          <td class="stars">${starText(e.stars)}</td>
+          <td><span class="tags">${(e.tags||[]).map(t=>`<span class="tag">${t}</span>`).join("")}</span></td>
+          <td class="warn">${statusText(e.verification_status)}</td>
+        </tr>`).join("");
+    }
+    function shortAccount(a) {
+      return a ? `${a.slice(0,8)}...${a.slice(-6)}` : "";
+    }
+    function renderStellar(data) {
+      const assets = data.assets || {};
+      document.getElementById("stellar-note").textContent = data.source_status === "stellar_live_readonly"
+        ? `Источник: Stellar Horizon, issuer ${data.issuer}. Обновлено: ${data.generated_at}.`
+        : "Stellar-слой не загружен.";
+      document.getElementById("stellar-stats").innerHTML = Object.entries(assets).flatMap(([code,a]) => [
+        [`${code}: trustlines`, a.entries_count || 0],
+        [`${code}: положительный баланс`, a.positive_balance_count || 0],
+        [`${code}: стандартные уровни`, Object.values(a.positive_by_standard_stars || {}).reduce((x,y)=>x+y,0)],
+        [`${code}: outliers`, a.positive_outlier_accounts_count || 0]
+      ]).map(([label,num]) => `<div class="card"><div class="num">${num}</div><div class="label">${label}</div></div>`).join("");
+      renderStellarRows(data);
+    }
+    function renderStellarRows(data) {
+      const asset = document.getElementById("asset").value;
+      const onlyPositive = document.getElementById("positive").value;
+      const entries = (((data.assets || {})[asset] || {}).entries || [])
+        .filter(e => !onlyPositive || e.positive_balance)
+        .slice(0, 120);
+      document.getElementById("stellar-rows").innerHTML = entries.map(e => `
+        <tr>
+          <td title="${e.account_id}">${shortAccount(e.account_id)}</td>
+          <td>${e.asset_code}</td>
+          <td class="stars">${e.balance}</td>
+          <td>${String(e.is_authorized)}</td>
+          <td>${e.account_last_modified_time || e.last_modified_ledger || ""}</td>
+        </tr>`).join("");
+    }
+    function renderActivity(data) {
+      const counts = data.counts || {};
+      document.getElementById("activity-stats").innerHTML = [
+        ["active", counts.active || 0],
+        ["passive", counts.passive || 0],
+        ["unknown", counts.unknown || 0],
+        ["checked", (data.entries || []).length]
+      ].map(([label,num]) => `<div class="card"><div class="num">${num}</div><div class="label">${label}</div></div>`).join("");
+      document.getElementById("activity-rows").innerHTML = (data.entries || []).map(e => `
+        <tr>
+          <td><strong>${e.public_id || ""}</strong></td>
+          <td>${e.asset_code || ""}</td>
+          <td class="stars">${e.stars || ""}⭐</td>
+          <td>${e.account_activity_status || "unknown"}</td>
+          <td>${e.last_self_authored_operation_at || "нет в проверенном окне"}</td>
+          <td title="${e.account_id || ""}">${shortAccount(e.account_id)}</td>
+        </tr>`).join("");
+    }
+    function fillTags(data) {
+      const select = document.getElementById("tag");
+      [...new Set((data.entries || []).flatMap(e => e.tags || []))].sort().forEach(t => {
+        const option = document.createElement("option");
+        option.value = t;
+        option.textContent = `${t}${data.tags && data.tags[t] ? " — " + data.tags[t] : ""}`;
+        select.appendChild(option);
+      });
+    }
+    Promise.all([loadRegistry(), loadStellar(), loadActivity()]).then(([data, stellar, activity]) => {
+      renderStats(data); fillTags(data); renderRows(data);
+      renderStellar(stellar);
+      renderActivity(activity);
+      ["q","stars","tag"].forEach(id => document.getElementById(id).addEventListener("input", () => renderRows(data)));
+      ["asset","positive"].forEach(id => document.getElementById(id).addEventListener("input", () => renderStellarRows(stellar)));
+    });
+  </script>
+</body>
+</html>

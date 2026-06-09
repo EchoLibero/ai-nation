@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UTM-генератор ЦРР</title>
+    <meta name="description" content="UTM-генератор ЦРР: public AI Nation and Synapolis page with project information, operational context and verification links.">
+  <link rel="canonical" href="https://aination.center/rdc-promotion/utm/">
+  <meta property="og:title" content="UTM-генератор ЦРР">
+  <meta property="og:description" content="UTM-генератор ЦРР: public AI Nation and Synapolis page with project information, operational context and verification links.">
+  <meta property="og:url" content="https://aination.center/rdc-promotion/utm/">
+  <meta property="og:type" content="website">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"UTM-генератор ЦРР","url":"https://aination.center/rdc-promotion/utm/","description":"UTM-генератор ЦРР: public AI Nation and Synapolis page with project information, operational context and verification links.","isPartOf":{"@type":"WebSite","name":"AI Nation","url":"https://aination.center/"}}</script>
+<style>
+    :root {
+      --bg: #f4efe5;
+      --ink: #20221d;
+      --muted: #6d705f;
+      --card: #fffaf0;
+      --line: #d9cfbb;
+      --accent: #0f6b58;
+      --accent-2: #cf6b2f;
+      --bad: #a33a2d;
+      --good: #27724c;
+      --shadow: 0 18px 50px rgba(48, 39, 24, .12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(207, 107, 47, .14), transparent 36rem),
+        linear-gradient(135deg, #f8f2e8, var(--bg));
+      color: var(--ink);
+      font: 16px/1.5 "Georgia", "Times New Roman", serif;
+    }
+    header {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 42px 22px 18px;
+    }
+    .eyebrow {
+      color: var(--accent);
+      font: 700 12px/1.2 Verdana, sans-serif;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 820px;
+      margin: 12px 0 12px;
+      font-size: clamp(34px, 7vw, 72px);
+      line-height: .95;
+      letter-spacing: -.05em;
+    }
+    .lead {
+      max-width: 820px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 19px;
+    }
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 22px 54px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(330px, 420px);
+      gap: 22px;
+    }
+    section, aside {
+      background: rgba(255, 250, 240, .88);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+    h2 {
+      margin: 0 0 18px;
+      font-size: 28px;
+      letter-spacing: -.03em;
+    }
+    h3 {
+      margin: 26px 0 10px;
+      font: 700 13px/1.2 Verdana, sans-serif;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    label {
+      display: block;
+      color: var(--muted);
+      font: 700 12px/1.2 Verdana, sans-serif;
+      letter-spacing: .04em;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 13px;
+      background: #fffdf7;
+      color: var(--ink);
+      font: 15px/1.3 Verdana, sans-serif;
+    }
+    textarea { min-height: 74px; resize: vertical; }
+    input:focus, select:focus, textarea:focus {
+      outline: 3px solid rgba(15, 107, 88, .14);
+      border-color: var(--accent);
+    }
+    .span-2 { grid-column: 1 / -1; }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    button, .link-button {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 16px;
+      background: var(--accent);
+      color: #fffdf7;
+      cursor: pointer;
+      font: 700 13px/1 Verdana, sans-serif;
+      text-decoration: none;
+    }
+    button.secondary, .link-button.secondary { background: #342f27; }
+    button.ghost, .link-button.ghost {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    button.warn { background: var(--bad); }
+    .result {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px dashed var(--accent);
+      background: rgba(15, 107, 88, .07);
+      word-break: break-all;
+      font: 14px/1.5 Verdana, sans-serif;
+    }
+    .hint {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 8px 0 0;
+    }
+    .status {
+      min-height: 22px;
+      margin-top: 10px;
+      color: var(--good);
+      font: 700 13px/1.4 Verdana, sans-serif;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fffdf7;
+      margin-top: 16px;
+    }
+    details.agent-panel {
+      margin-top: 18px;
+      border: 1px dashed var(--line);
+      border-radius: 18px;
+      padding: 12px 14px;
+      background: rgba(239, 229, 210, .45);
+    }
+    details.agent-panel summary {
+      cursor: pointer;
+      color: var(--muted);
+      font: 700 12px/1.2 Verdana, sans-serif;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+      font: 13px/1.35 Verdana, sans-serif;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #efe5d2;
+      color: #40382d;
+      position: sticky;
+      top: 0;
+    }
+    tr:last-child td { border-bottom: 0; }
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 4px 8px;
+      background: rgba(207, 107, 47, .13);
+      color: #7a3b17;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .cards {
+      display: grid;
+      gap: 12px;
+    }
+    .card {
+      border: 1px solid var(--line);
+      background: #fffdf7;
+      border-radius: 18px;
+      padding: 14px;
+    }
+    .card strong { display: block; margin-bottom: 4px; }
+    code {
+      background: #efe5d2;
+      border-radius: 6px;
+      padding: 2px 5px;
+      font-size: .93em;
+    }
+    @media (max-width: 880px) {
+      main { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">AI Nation tools / RDC growth</div>
+    <h1>UTM-генератор и журнал кампаний ЦРР</h1>
+    <p class="lead">Инструмент для разметки ссылок на сайт Центра Развития Региона, накопления размещений и первичной оценки эффективности каналов.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Собрать UTM-ссылку</h2>
+      <div class="grid">
+        <div class="span-2">
+          <label for="targetUrl">Целевая страница</label>
+          <input id="targetUrl" value="https://rdc.charity/" placeholder="https://rdc.charity/">
+        </div>
+        <div>
+          <label for="source">utm_source</label>
+          <select id="source">
+            <option value="telegram">telegram</option>
+            <option value="vk">vk</option>
+            <option value="ok">ok</option>
+            <option value="max">max</option>
+            <option value="partner">partner</option>
+            <option value="qr">qr</option>
+            <option value="yandex">yandex</option>
+            <option value="direct">direct</option>
+          </select>
+        </div>
+        <div>
+          <label for="medium">utm_medium</label>
+          <select id="medium">
+            <option value="post">post</option>
+            <option value="repost">repost</option>
+            <option value="partner_post">partner_post</option>
+            <option value="story">story</option>
+            <option value="qr">qr</option>
+            <option value="paid">paid</option>
+            <option value="email">email</option>
+          </select>
+        </div>
+        <div>
+          <label for="campaign">utm_campaign</label>
+          <input id="campaign" value="donation_general_2026_06" placeholder="help_school_2026_06">
+        </div>
+        <div>
+          <label for="content">utm_content</label>
+          <input id="content" value="tg_main_post_01" placeholder="tg_main_post_01">
+        </div>
+        <div>
+          <label for="term">utm_term</label>
+          <input id="term" placeholder="только для платной рекламы">
+        </div>
+        <div>
+          <label for="owner">Кто размещает</label>
+          <input id="owner" placeholder="ЦРР / партнёр / школа / волонтёр">
+        </div>
+        <div class="span-2">
+          <label for="note">Комментарий</label>
+          <textarea id="note" placeholder="Коротко: тема поста, аудитория, что проверяем"></textarea>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="buildBtn">Собрать ссылку</button>
+        <button class="secondary" id="copyBtn">Копировать</button>
+        <button class="ghost" id="saveBtn">Сохранить в журнал</button>
+      </div>
+      <div class="result" id="result"></div>
+      <div class="status" id="status"></div>
+
+      <h3>Журнал размещений</h3>
+      <p class="hint">Для оператора это рабочий журнал размещений. Техническую синхронизацию и архивирование должны делать агенты.</p>
+      <input id="importFile" type="file" accept="application/json" hidden>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Дата</th>
+              <th>Канал</th>
+              <th>Кампания</th>
+              <th>Content</th>
+              <th>Ссылка</th>
+              <th>Визиты</th>
+              <th>Действия</th>
+              <th>Конверсия</th>
+              <th>Стоимость</th>
+              <th>CPA</th>
+              <th>Вывод</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <details class="agent-panel">
+        <summary>Агентский технический блок</summary>
+        <p class="hint">Временный мост до серверной синхронизации. Оператору не нужен.</p>
+        <div class="actions">
+          <button class="secondary" id="exportJsonBtn">Экспорт JSON</button>
+          <button class="secondary" id="exportCsvBtn">Экспорт CSV</button>
+          <button class="ghost" id="importBtn">Импорт JSON</button>
+          <button class="warn" id="clearBtn">Очистить локально</button>
+        </div>
+      </details>
+    </section>
+
+    <aside>
+      <h2>Карта процесса</h2>
+      <div class="cards">
+        <div class="card">
+          <strong>1. Выбрать задачу</strong>
+          Что нужно получить: визит, подписку, пожертвование, заявку или партнёрский контакт.
+        </div>
+        <div class="card">
+          <strong>2. Выбрать страницу</strong>
+          Ссылка должна вести не “куда-нибудь”, а на страницу, где человек может выполнить нужное действие.
+        </div>
+        <div class="card">
+          <strong>3. Собрать UTM</strong>
+          Канал пишется в <code>utm_source</code>, тип размещения в <code>utm_medium</code>, проект в <code>utm_campaign</code>, вариант поста в <code>utm_content</code>.
+        </div>
+        <div class="card">
+          <strong>4. Опубликовать</strong>
+          В каждый канал вставляется своя ссылка. Нельзя копировать Telegram-ссылку в OK, VK или партнёрский пост.
+        </div>
+        <div class="card">
+          <strong>5. Снять Метрику</strong>
+          Через 3/7/14 дней взять визиты и целевые действия по этой UTM-связке.
+        </div>
+        <div class="card">
+          <strong>6. Сделать вывод</strong>
+          Масштабировать, изменить оффер, сменить площадку или закрыть гипотезу.
+        </div>
+      </div>
+
+      <h3>Инструкция оператора</h3>
+      <div class="cards">
+        <div class="card">
+          <strong>Перед постом</strong>
+          Выберите целевую страницу, канал, тип размещения, кампанию и вариант материала. Нажмите “Собрать ссылку”.
+        </div>
+        <div class="card">
+          <strong>При публикации</strong>
+          Вставьте в пост только сгенерированную ссылку. Если тот же текст идёт в другой канал, соберите новую ссылку с другим <code>utm_source</code> и <code>utm_content</code>.
+        </div>
+        <div class="card">
+          <strong>После публикации</strong>
+          Нажмите “Сохранить в журнал”. Запишите, кто разместил материал и какую гипотезу проверяем.
+        </div>
+        <div class="card">
+          <strong>После сбора статистики</strong>
+          Перенесите из Метрики визиты, целевые действия и стоимость. Конверсия и CPA посчитаются здесь.
+        </div>
+      </div>
+
+      <h2>Правила</h2>
+      <div class="cards">
+        <div class="card">
+          <strong>Одна площадка — одна ссылка</strong>
+          Нельзя давать одинаковую UTM-ссылку в Telegram, OK, VK и партнёрам.
+        </div>
+        <div class="card">
+          <strong>Кампания отвечает на вопрос “что продвигаем”</strong>
+          Например <code>help_school_2026_06</code>, а не <code>post1</code>.
+        </div>
+        <div class="card">
+          <strong>Content отвечает на вопрос “какой вариант”</strong>
+          Например <code>ok_photo_post_01</code> или <code>partner_school_12</code>.
+        </div>
+        <div class="card">
+          <strong>После Метрики</strong>
+          В журнал вручную заносятся визиты и целевые действия. Конверсия и CPA считаются автоматически.
+        </div>
+      </div>
+
+      <h3>Аналитика по локальному журналу</h3>
+      <div class="cards" id="summary"></div>
+
+      <h3>Яндекс.Метрика</h3>
+      <div class="cards" id="metrikaSummary">
+        <div class="card">Загрузка агрегатов Метрики...</div>
+      </div>
+
+      <h3>Связанные материалы</h3>
+      <p><a href="https://wiki.aination.center/wiki/План_продвижения_ЦРР">План продвижения ЦРР</a></p>
+      <p><a href="https://wiki.aination.center/wiki/Центр_Развития_Региона">Wiki-страница ЦРР</a></p>
+      <p><a href="https://rdc.charity/">Сайт ЦРР</a></p>
+    </aside>
+  </main>
+
+  <script>
+    const STORE_KEY = "rdc_utm_registry_v1";
+    const fields = ["targetUrl", "source", "medium", "campaign", "content", "term", "owner", "note"];
+    const $ = (id) => document.getElementById(id);
+
+    function slug(value) {
+      return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9а-яё_-]+/gi, "_")
+        .replace(/^_+|_+$/g, "");
+    }
+
+    function buildUrl() {
+      const base = $("targetUrl").value.trim() || "https://rdc.charity/";
+      const url = new URL(base);
+      url.searchParams.set("utm_source", slug($("source").value));
+      url.searchParams.set("utm_medium", slug($("medium").value));
+      url.searchParams.set("utm_campaign", slug($("campaign").value));
+      url.searchParams.set("utm_content", slug($("content").value));
+      if ($("term").value.trim()) url.searchParams.set("utm_term", slug($("term").value));
+      return url.toString();
+    }
+
+    function readRegistry() {
+      try { return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
+      catch { return []; }
+    }
+
+    function writeRegistry(items) {
+      localStorage.setItem(STORE_KEY, JSON.stringify(items, null, 2));
+      render();
+    }
+
+    function entryFromForm() {
+      return {
+        id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random(),
+        created_at: new Date().toISOString(),
+        target_url: $("targetUrl").value.trim(),
+        utm_source: slug($("source").value),
+        utm_medium: slug($("medium").value),
+        utm_campaign: slug($("campaign").value),
+        utm_content: slug($("content").value),
+        utm_term: slug($("term").value),
+        owner: $("owner").value.trim(),
+        note: $("note").value.trim(),
+        url: buildUrl(),
+        visits: 0,
+        actions: 0,
+        cost: 0,
+        conclusion: ""
+      };
+    }
+
+    function setStatus(text) {
+      $("status").textContent = text;
+      if (text) setTimeout(() => { $("status").textContent = ""; }, 2200);
+    }
+
+    function download(name, type, content) {
+      const blob = new Blob([content], { type });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function csvEscape(value) {
+      const text = String(value ?? "");
+      return /[",\n;]/.test(text) ? '"' + text.replace(/"/g, '""') + '"' : text;
+    }
+
+    function exportCsv() {
+      const rows = readRegistry();
+      const headers = ["created_at", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "owner", "url", "visits", "actions", "conversion", "cost", "cpa", "conclusion", "note"];
+      const lines = [headers.join(";")];
+      rows.forEach((row) => {
+        const conversion = row.visits > 0 ? row.actions / row.visits : "";
+        const cpa = row.actions > 0 ? row.cost / row.actions : "";
+        lines.push(headers.map((key) => csvEscape(key === "conversion" ? conversion : key === "cpa" ? cpa : row[key])).join(";"));
+      });
+      download("rdc-utm-registry.csv", "text/csv;charset=utf-8", lines.join("\n"));
+    }
+
+    function render() {
+      const rows = readRegistry();
+      const tbody = $("tbody");
+      tbody.innerHTML = "";
+      rows.forEach((row) => {
+        const conversion = row.visits > 0 ? ((row.actions / row.visits) * 100).toFixed(2) + "%" : "";
+        const cpa = row.actions > 0 && row.cost > 0 ? (row.cost / row.actions).toFixed(2) : "";
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${new Date(row.created_at).toLocaleString("ru-RU")}</td>
+          <td><span class="pill">${row.utm_source}/${row.utm_medium}</span></td>
+          <td>${row.utm_campaign}</td>
+          <td>${row.utm_content}</td>
+          <td><a href="${row.url}" target="_blank" rel="noopener">ссылка</a></td>
+          <td><input data-id="${row.id}" data-key="visits" type="number" min="0" value="${row.visits || 0}"></td>
+          <td><input data-id="${row.id}" data-key="actions" type="number" min="0" value="${row.actions || 0}"></td>
+          <td>${conversion}</td>
+          <td><input data-id="${row.id}" data-key="cost" type="number" min="0" step="0.01" value="${row.cost || 0}"></td>
+          <td>${cpa}</td>
+          <td><input data-id="${row.id}" data-key="conclusion" value="${row.conclusion || ""}" placeholder="масштабировать / закрыть"></td>
+          <td><button class="warn" data-remove="${row.id}">Удалить</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+      renderSummary(rows);
+    }
+
+    function renderSummary(rows) {
+      const bySource = new Map();
+      rows.forEach((row) => {
+        const key = row.utm_source || "unknown";
+        const current = bySource.get(key) || { visits: 0, actions: 0, cost: 0, count: 0 };
+        current.visits += Number(row.visits || 0);
+        current.actions += Number(row.actions || 0);
+        current.cost += Number(row.cost || 0);
+        current.count += 1;
+        bySource.set(key, current);
+      });
+      const summary = $("summary");
+      summary.innerHTML = "";
+      if (!rows.length) {
+        summary.innerHTML = '<div class="card">Журнал пуст. Сохраните первую UTM-ссылку.</div>';
+        return;
+      }
+      [...bySource.entries()].sort((a, b) => b[1].visits - a[1].visits).forEach(([source, item]) => {
+        const conv = item.visits ? ((item.actions / item.visits) * 100).toFixed(2) + "%" : "n/a";
+        const cpa = item.actions && item.cost ? (item.cost / item.actions).toFixed(2) : "n/a";
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `<strong>${source}</strong> размещений: ${item.count}; визиты: ${item.visits}; действия: ${item.actions}; конверсия: ${conv}; CPA: ${cpa}`;
+        summary.appendChild(div);
+      });
+    }
+
+    async function loadMetrika() {
+      const box = $("metrikaSummary");
+      try {
+        const response = await fetch("/rdc-promotion/metrika.json", { cache: "no-store" });
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        const data = await response.json();
+        const range7 = data.ranges?.last_7_days || {};
+        const range30 = data.ranges?.last_30_days_basic || {};
+        const campaigns = data.breakdowns?.utm_campaigns_30d || [];
+        const sources = data.breakdowns?.traffic_sources_30d || [];
+        box.innerHTML = "";
+        const cards = [
+          ["Обновлено", new Date(data.generated_at).toLocaleString("ru-RU")],
+          ["7 дней", `визиты: ${range7.visits ?? "n/a"}; посетители: ${range7.users ?? "n/a"}; просмотры: ${range7.pageviews ?? "n/a"}; отказы: ${range7.bounce_rate ?? "n/a"}%`],
+          ["30 дней", `визиты: ${range30.visits ?? "n/a"}; посетители: ${range30.users ?? "n/a"}; просмотры: ${range30.pageviews ?? "n/a"}`],
+          ["UTM-кампании", campaigns.length ? campaigns.slice(0, 4).map(item => `${item.name}: ${item.visits}`).join("; ") : "нет данных"],
+          ["Источники", sources.length ? sources.slice(0, 4).map(item => `${item.name}: ${item.visits}`).join("; ") : "нет данных"],
+        ];
+        cards.forEach(([title, text]) => {
+          const div = document.createElement("div");
+          div.className = "card";
+          div.innerHTML = `<strong>${title}</strong>${text}`;
+          box.appendChild(div);
+        });
+      } catch (error) {
+        box.innerHTML = `<div class="card"><strong>Метрика недоступна</strong>${error.message}</div>`;
+      }
+    }
+
+    $("buildBtn").addEventListener("click", () => {
+      $("result").textContent = buildUrl();
+      setStatus("Ссылка собрана");
+    });
+    $("copyBtn").addEventListener("click", async () => {
+      const url = $("result").textContent || buildUrl();
+      await navigator.clipboard.writeText(url);
+      $("result").textContent = url;
+      setStatus("Ссылка скопирована");
+    });
+    $("saveBtn").addEventListener("click", () => {
+      const rows = readRegistry();
+      rows.unshift(entryFromForm());
+      writeRegistry(rows);
+      $("result").textContent = rows[0].url;
+      setStatus("Запись сохранена локально");
+    });
+    $("exportJsonBtn").addEventListener("click", () => {
+      download("rdc-utm-registry.json", "application/json;charset=utf-8", JSON.stringify(readRegistry(), null, 2));
+    });
+    $("exportCsvBtn").addEventListener("click", exportCsv);
+    $("importBtn").addEventListener("click", () => $("importFile").click());
+    $("importFile").addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      const imported = JSON.parse(await file.text());
+      if (!Array.isArray(imported)) throw new Error("JSON должен быть массивом");
+      writeRegistry(imported);
+      setStatus("JSON импортирован");
+    });
+    $("clearBtn").addEventListener("click", () => {
+      if (confirm("Очистить локальный журнал UTM в этом браузере?")) writeRegistry([]);
+    });
+    $("tbody").addEventListener("input", (event) => {
+      const id = event.target.dataset.id;
+      const key = event.target.dataset.key;
+      if (!id || !key) return;
+      const rows = readRegistry();
+      const row = rows.find((item) => item.id === id);
+      if (!row) return;
+      row[key] = ["visits", "actions", "cost"].includes(key) ? Number(event.target.value || 0) : event.target.value;
+      writeRegistry(rows);
+    });
+    $("tbody").addEventListener("click", (event) => {
+      const id = event.target.dataset.remove;
+      if (!id) return;
+      writeRegistry(readRegistry().filter((item) => item.id !== id));
+    });
+
+    $("result").textContent = buildUrl();
+    render();
+    loadMetrika();
+  </script>
+</body>
+</html>

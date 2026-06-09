@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Accelerator: Stellar reconciliation</title>
+    <link rel="canonical" href="https://aination.center/social-accelerator/reconciliation/">
+  <meta property="og:title" content="Social Accelerator: Stellar reconciliation">
+  <meta property="og:description" content="Social Accelerator: Stellar reconciliation: public Social Accelerator registry and verification surface for Montelibero resident accounting.">
+  <meta property="og:url" content="https://aination.center/social-accelerator/reconciliation/">
+  <meta property="og:type" content="website">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Social Accelerator: Stellar reconciliation","url":"https://aination.center/social-accelerator/reconciliation/","description":"Social Accelerator: Stellar reconciliation: public Social Accelerator registry and verification surface for Montelibero resident accounting.","isPartOf":{"@type":"WebSite","name":"AI Nation","url":"https://aination.center/"}}</script>
+<meta name="description" content="Черновая сверка seed-реестра Social Accelerator с держателями MTLAP/MTLAC в Stellar.">
+  <style>
+    :root { --bg:#0f1419; --panel:#17202a; --panel2:#202c37; --text:#edf5f8; --muted:#9eafbc; --line:#31404d; --accent:#64d2b0; --warn:#f6c35b; --bad:#ff8a8a; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:linear-gradient(135deg,#0f1419,#162632); color:var(--text); font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    header, main { max-width:1280px; margin:0 auto; padding:26px 18px; }
+    nav { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:26px; }
+    a { color:#82e4c6; text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    h1 { font-size:clamp(2rem,5vw,4rem); line-height:1; letter-spacing:-.04em; margin:16px 0; }
+    h2 { margin:0 0 12px; font-size:1.35rem; }
+    p { color:var(--muted); max-width:900px; }
+    .badge { display:inline-block; border:1px solid rgba(100,210,176,.45); color:#baf7df; background:rgba(100,210,176,.1); border-radius:999px; padding:6px 10px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin:20px 0; }
+    .card, section { background:rgba(23,32,42,.94); border:1px solid var(--line); border-radius:16px; padding:16px; }
+    .num { font-size:1.9rem; font-weight:760; }
+    .label { color:var(--muted); }
+    .controls { display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 16px; }
+    input, select { background:var(--panel2); color:var(--text); border:1px solid var(--line); border-radius:9px; padding:9px 11px; min-width:160px; }
+    table { width:100%; border-collapse:collapse; table-layout:auto; }
+    th, td { text-align:left; border-bottom:1px solid var(--line); padding:8px 7px; vertical-align:top; }
+    th { color:#dceaf0; font-size:.86rem; }
+    td { color:var(--muted); font-size:.91rem; }
+    .mono { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.84rem; word-break:break-all; }
+    .warn { color:var(--warn); }
+    .bad { color:var(--bad); }
+    footer { color:var(--muted); text-align:center; padding:28px 18px 40px; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/social-accelerator/">Социальный акселератор</a>
+      <a href="/social-accelerator/dashboard/">Дашборд</a>
+      <a href="/social-accelerator/stellar-reconciliation.json">stellar-reconciliation.json</a>
+      <a href="/social-accelerator/newcomers/">Только новички</a>
+      <a href="https://wiki.aination.center/wiki/Монтелиберо/Реестр_резидентов">Wiki-реестр</a>
+    </nav>
+    <span class="badge">draft reconciliation · Stellar only</span>
+    <h1>Сверка seed-реестра со Stellar</h1>
+    <p>Публичная страница для ручной работы со сверкой. Она не содержит приватных контактов и свободных account-data. Автоматическое удаление или добавление записей не выполняется.</p>
+  </header>
+  <main>
+    <div class="grid" id="stats"></div>
+    <section>
+      <h2>Фильтр</h2>
+      <div class="controls">
+        <select id="bucket">
+          <option value="onchain_without_seed_match">Новички: onchain_only_newcomer</option>
+          <option value="ambiguous">Конфликты: conflict_multiple_candidates</option>
+          <option value="seed_without_token_match">Seed без подтверждения</option>
+          <option value="matched">Matched</option>
+        </select>
+        <select id="asset"><option value="">Все токены</option><option value="MTLAP">MTLAP</option><option value="MTLAC">MTLAC</option></select>
+        <select id="stars"><option value="">Все уровни</option><option value="1">1⭐</option><option value="2">2⭐</option><option value="3">3⭐</option><option value="4">4⭐</option><option value="5">5⭐</option></select>
+        <input id="q" placeholder="Поиск account/id">
+      </div>
+      <table>
+        <thead><tr><th>Статус</th><th>Токен/класс</th><th>Уровень</th><th>Account / seed id</th><th>Match</th><th>Авторизация</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </section>
+  </main>
+  <footer>AI Nation / Montelibero · public sanitized reconciliation view</footer>
+  <script>
+    let report = null;
+    const short = v => v ? `${v.slice(0,10)}...${v.slice(-8)}` : "";
+    function renderStats() {
+      const c = report.counts || {};
+      const statuses = {};
+      ["matched","ambiguous","onchain_without_seed_match","seed_without_token_match"].forEach(k => (report[k] || []).forEach(e => statuses[e.reconciliation_status] = (statuses[e.reconciliation_status] || 0) + 1));
+      document.getElementById("stats").innerHTML = [
+        ["seed", c.seed_entries || 0],
+        ["on-chain holders", c.onchain_positive_holders || 0],
+        ["confirmed", statuses.confirmed_match_active || 0],
+        ["probable", statuses.probable_match_active || 0],
+        ["newcomers", statuses.onchain_only_newcomer || 0],
+        ["ambiguous", statuses.conflict_multiple_candidates || 0],
+        ["seed-only", statuses.seed_only_unverified || 0]
+      ].map(([label,num]) => `<div class="card"><div class="num">${num}</div><div class="label">${label}</div></div>`).join("");
+    }
+    function row(e) {
+      const id = e.account_id || e.public_id || "";
+      const match = e.matched_public_id || (e.candidate_matches ? e.candidate_matches.map(m => `${m.public_id}:${m.confidence}`).join(", ") : "");
+      return `<tr>
+        <td>${e.reconciliation_status || ""}</td>
+        <td>${e.asset_code || e.class || ""}</td>
+        <td>${e.stars || ""}</td>
+        <td class="mono" title="${id}">${e.account_id ? short(e.account_id) : id}</td>
+        <td>${match}</td>
+        <td>${e.is_authorized === undefined ? "" : String(e.is_authorized)}</td>
+      </tr>`;
+    }
+    function renderRows() {
+      const bucket = document.getElementById("bucket").value;
+      const asset = document.getElementById("asset").value;
+      const stars = document.getElementById("stars").value;
+      const q = document.getElementById("q").value.trim().toLowerCase();
+      const rows = (report[bucket] || []).filter(e =>
+        (!asset || e.asset_code === asset || e.class === asset) &&
+        (!stars || String(e.stars) === stars) &&
+        (!q || JSON.stringify(e).toLowerCase().includes(q))
+      );
+      document.getElementById("rows").innerHTML = rows.map(row).join("");
+    }
+    fetch("/social-accelerator/stellar-reconciliation.json", {cache:"no-store"})
+      .then(r => r.json())
+      .then(j => { report = j; renderStats(); renderRows(); ["bucket","asset","stars","q"].forEach(id => document.getElementById(id).addEventListener("input", renderRows)); });
+  </script>
+</body>
+</html>

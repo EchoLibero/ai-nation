@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Accelerator: newcomers</title>
+    <meta name="description" content="Social Accelerator newcomer list from Stellar registry data, separated from verified scope and legacy seed records.">
+  <link rel="canonical" href="https://aination.center/social-accelerator/newcomers/">
+  <meta property="og:title" content="Social Accelerator: newcomers">
+  <meta property="og:description" content="Social Accelerator newcomer list from Stellar registry data, separated from verified scope and legacy seed records.">
+  <meta property="og:url" content="https://aination.center/social-accelerator/newcomers/">
+  <meta property="og:type" content="website">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Social Accelerator: newcomers","url":"https://aination.center/social-accelerator/newcomers/","description":"Social Accelerator newcomer list from Stellar registry data, separated from verified scope and legacy seed records.","isPartOf":{"@type":"WebSite","name":"AI Nation","url":"https://aination.center/"}}</script>
+<style>
+    :root { --bg:#10151b; --panel:#18222c; --panel2:#23313d; --text:#edf5f8; --muted:#9fb0bd; --line:#334452; --accent:#7ee0bf; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:linear-gradient(135deg,#10151b,#172b34); color:var(--text); font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    header, main { max-width:1280px; margin:0 auto; padding:26px 18px; }
+    nav { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:26px; }
+    a { color:var(--accent); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    h1 { font-size:clamp(2rem,5vw,4rem); line-height:1; letter-spacing:-.04em; margin:16px 0; }
+    p { color:var(--muted); max-width:920px; }
+    .badge { border:1px solid rgba(126,224,191,.45); background:rgba(126,224,191,.1); color:#baf7df; border-radius:999px; padding:6px 10px; display:inline-block; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin:20px 0; }
+    .card, section { background:rgba(24,34,44,.94); border:1px solid var(--line); border-radius:16px; padding:16px; }
+    .num { font-size:2rem; font-weight:760; }
+    .label { color:var(--muted); }
+    .controls { display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 16px; }
+    input, select { background:var(--panel2); color:var(--text); border:1px solid var(--line); border-radius:9px; padding:9px 11px; min-width:160px; }
+    table { width:100%; border-collapse:collapse; }
+    th, td { text-align:left; border-bottom:1px solid var(--line); padding:8px 7px; vertical-align:top; }
+    th { color:#dceaf0; font-size:.86rem; }
+    td { color:var(--muted); font-size:.9rem; }
+    .mono { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; word-break:break-all; color:#d9e7ed; }
+    footer { color:var(--muted); text-align:center; padding:28px 18px 40px; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/social-accelerator/">Социальный акселератор</a>
+      <a href="/social-accelerator/reconciliation/">Общая сверка</a>
+      <a href="/social-accelerator/newcomers.json">newcomers.json</a>
+      <a href="/social-accelerator/dashboard/">Дашборд</a>
+    </nav>
+    <span class="badge">candidate newcomers · needs review</span>
+    <h1>Кандидаты в новички по Stellar</h1>
+    <p>Отдельный список держателей MTLAP/MTLAC, которые есть в текущем on-chain снимке, но не сопоставлены со старым seed-реестром текущими эвристиками. Это не гарантированно новые участники: часть записей может оказаться старыми участниками без подтверждённой связки seed id ↔ Stellar account.</p>
+    <p>В таблице показаны полные публичные Stellar account_id, чтобы можно было вручную поднять детали и подтвердить статус.</p>
+  </header>
+  <main>
+    <div class="grid" id="stats"></div>
+    <section>
+      <h2>Список кандидатов</h2>
+      <div class="controls">
+        <select id="asset"><option value="">Все токены</option><option value="MTLAP">MTLAP</option><option value="MTLAC">MTLAC</option></select>
+        <select id="stars"><option value="">Все уровни</option><option value="1">1⭐</option><option value="2">2⭐</option><option value="3">3⭐</option><option value="4">4⭐</option><option value="5">5⭐</option></select>
+        <input id="q" placeholder="Поиск по адресу">
+      </div>
+      <table>
+        <thead><tr><th>Токен</th><th>Уровень</th><th>Полный Stellar account_id</th><th>Баланс</th><th>Авторизация</th><th>Ledger/time</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </section>
+  </main>
+  <footer>AI Nation / Montelibero · public newcomer list</footer>
+  <script>
+    let data = null;
+    function renderStats() {
+      const entries = data.entries || [];
+      const byAsset = entries.reduce((a,e)=>{a[e.asset_code]=(a[e.asset_code]||0)+1; return a;}, {});
+      const byStars = entries.reduce((a,e)=>{const k=`${e.asset_code} ${e.stars}⭐`; a[k]=(a[k]||0)+1; return a;}, {});
+      document.getElementById("stats").innerHTML = [
+        ["Всего", entries.length],
+        ["MTLAP", byAsset.MTLAP || 0],
+        ["MTLAC", byAsset.MTLAC || 0],
+        ...Object.entries(byStars)
+      ].map(([label,num]) => `<div class="card"><div class="num">${num}</div><div class="label">${label}</div></div>`).join("");
+    }
+    function renderRows() {
+      const asset = document.getElementById("asset").value;
+      const stars = document.getElementById("stars").value;
+      const q = document.getElementById("q").value.trim().toLowerCase();
+      const rows = (data.entries || []).filter(e =>
+        (!asset || e.asset_code === asset) &&
+        (!stars || String(e.stars) === stars) &&
+        (!q || e.account_id.toLowerCase().includes(q))
+      );
+      document.getElementById("rows").innerHTML = rows.map(e => `
+        <tr>
+          <td>${e.asset_code}</td>
+          <td>${e.stars}⭐</td>
+          <td class="mono">${e.account_id}</td>
+          <td>${e.balance}</td>
+          <td>${String(e.is_authorized)}</td>
+          <td>${e.account_last_modified_time || e.last_modified_ledger || ""}</td>
+        </tr>`).join("");
+    }
+    fetch("/social-accelerator/newcomers.json", {cache:"no-store"})
+      .then(r => r.json())
+      .then(j => { data = j; renderStats(); renderRows(); ["asset","stars","q"].forEach(id => document.getElementById(id).addEventListener("input", renderRows)); });
+  </script>
+</body>
+</html>

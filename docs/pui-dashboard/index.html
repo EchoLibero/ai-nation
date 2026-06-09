@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Программа ваучерной медицинской помощи</title>
+  <meta name="description" content="Public dashboard for AI Nation operational indicators and project state readbacks.">
+  <link rel="canonical" href="https://aination.center/pui-dashboard/">
+  <meta property="og:title" content="Программа ваучерной медицинской помощи">
+  <meta property="og:description" content="Public dashboard for AI Nation operational indicators and project state readbacks.">
+  <meta property="og:url" content="https://aination.center/pui-dashboard/">
+  <meta property="og:type" content="website">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Программа ваучерной медицинской помощи","url":"https://aination.center/pui-dashboard/","description":"Public dashboard for AI Nation operational indicators and project state readbacks.","isPartOf":{"@type":"WebSite","name":"AI Nation","url":"https://aination.center/"}}</script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; color: #333; line-height: 1.5; }
+  .container { max-width: 900px; margin: 0 auto; padding: 16px; }
+  header { background: #1a365d; color: #fff; padding: 24px 16px; border-radius: 12px; margin-bottom: 16px; }
+  header h1 { font-size: 1.4rem; margin-bottom: 8px; }
+  header .subtitle { opacity: 0.85; font-size: 0.9rem; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin-right: 6px; }
+  .badge-blue { background: #3182ce; color: #fff; }
+  .badge-green { background: #38a169; color: #fff; }
+  .badge-orange { background: #dd6b20; color: #fff; }
+  .badge-red { background: #e53e3e; color: #fff; }
+  .badge-gray { background: #718096; color: #fff; }
+
+  .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .card h2 { font-size: 1.1rem; margin-bottom: 12px; color: #1a365d; display: flex; align-items: center; gap: 8px; }
+  .card h2 .icon { font-size: 1.2rem; }
+
+  .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 600px) { .doc-grid { grid-template-columns: 1fr; } }
+
+  .doc-item { background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; }
+  .doc-item .name { font-weight: 600; font-size: 0.9rem; margin-bottom: 6px; }
+  .doc-item .links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .doc-item a { font-size: 0.8rem; color: #3182ce; text-decoration: none; padding: 4px 10px; background: #ebf8ff; border-radius: 6px; }
+  .doc-item a:hover { background: #bee3f8; }
+
+  .budget-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #edf2f7; }
+  .budget-row:last-child { border-bottom: none; }
+  .budget-row .sum { font-weight: 600; font-family: monospace; }
+  .budget-total { background: #1a365d; color: #fff; padding: 12px 16px; border-radius: 8px; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .budget-total .sum { font-size: 1.2rem; font-weight: 700; font-family: monospace; }
+
+  .task { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #edf2f7; }
+  .task:last-child { border-bottom: none; }
+  .task-status { width: 18px; height: 18px; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+  .status-done { background: #38a169; }
+  .status-progress { background: #dd6b20; }
+  .status-todo { background: #e2e8f0; border: 2px solid #cbd5e0; }
+  .task-body { flex: 1; }
+  .task-name { font-weight: 500; }
+  .task-meta { font-size: 0.8rem; color: #718096; margin-top: 2px; }
+
+  .contact { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+  .contact-avatar { width: 36px; height: 36px; border-radius: 50%; background: #3182ce; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.85rem; flex-shrink: 0; }
+  .contact-info { flex: 1; }
+  .contact-name { font-weight: 600; font-size: 0.9rem; }
+  .contact-role { font-size: 0.8rem; color: #718096; }
+
+  .note { background: #fffaf0; border-left: 4px solid #dd6b20; padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 0.85rem; color: #744210; margin-bottom: 16px; }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  @media (max-width: 700px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .kpi { background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; text-align: center; }
+  .kpi-value { font-size: 1.6rem; font-weight: 700; color: #1a365d; }
+  .kpi-target { font-size: 0.75rem; color: #718096; }
+  .kpi-label { font-size: 0.8rem; color: #4a5568; margin-top: 4px; }
+  .kpi-bar-bg { background: #e2e8f0; border-radius: 4px; height: 6px; margin-top: 8px; overflow: hidden; }
+  .kpi-bar-fill { height: 100%; border-radius: 4px; }
+  .kpi-bar-green { background: #38a169; }
+  .kpi-bar-orange { background: #dd6b20; }
+  .kpi-bar-red { background: #e53e3e; }
+
+  footer { text-align: center; color: #a0aec0; font-size: 0.75rem; padding: 20px 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Медицинская помощь в Донецкой и Запорожской областях</h1>
+  <div class="subtitle">
+    <span class="badge badge-blue">ПВМП</span>
+    <span class="badge badge-green">Активен</span>
+    <span class="badge badge-orange">Фаза: подготовка</span>
+  </div>
+  <div class="subtitle" style="margin-top:8px;">Локации: Донецк, Запорожье (0–50 км) | Партнёр: Development Center</div>
+</header>
+
+<!-- ДОКУМЕНТЫ -->
+<div class="card">
+  <h2><span class="icon">&#128196;</span> Документы проекта</h2>
+  <div class="doc-grid">
+    <div class="doc-item">
+      <div class="name">Оценка лабораторий</div>
+      <div class="links">
+        <a href="https://aination.center/dl/Lab_Assessment_RU.pdf" target="_blank">PDF</a>
+        <a href="https://aination.center/dl/Lab_Assessment_RU.xlsx" target="_blank">Excel</a>
+      </div>
+    </div>
+    <div class="doc-item">
+      <div class="name">Оценка аптек (Народная ОЦ)</div>
+      <div class="links">
+        <a href="https://aination.center/dl/Pharmacy_Assessment_Narodyna_RU.pdf" target="_blank">PDF</a>
+        <a href="https://aination.center/dl/Pharmacy_Assessment_Narodyna_RU.xlsx" target="_blank">Excel</a>
+      </div>
+    </div>
+    <div class="doc-item">
+      <div class="name">Список лекарств (ваучер 2026)</div>
+      <div class="links">
+        <a href="https://aination.center/dl/Medication_Voucher_2026_RU.pdf" target="_blank">PDF</a>
+        <a href="https://aination.center/dl/Medication_Voucher_2026_RU.xlsx" target="_blank">Excel</a>
+      </div>
+    </div>
+    <div class="doc-item">
+      <div class="name">Ваучер на лаб. тесты</div>
+      <div class="links">
+        <a href="https://aination.center/dl/Lab_Tests_Voucher_RU.pdf" target="_blank">PDF</a>
+        <a href="https://aination.center/dl/Lab_Tests_Voucher_RU.docx" target="_blank">Word</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ЗАДАЧИ / ЭТАПЫ -->
+<div class="card">
+  <h2><span class="icon">&#9989;</span> Задачи и этапы</h2>
+
+  <div class="task">
+    <div class="task-status status-done"></div>
+    <div class="task-body">
+      <div class="task-name">Перевод документов на русский</div>
+      <div class="task-meta">Выполнено</div>
+    </div>
+  </div>
+  <div class="task">
+    <div class="task-status status-todo"></div>
+    <div class="task-body">
+      <div class="task-name">Оценка аптек (Донецк)</div>
+      <div class="task-meta">Ожидает · Форма готова</div>
+    </div>
+  </div>
+  <div class="task">
+    <div class="task-status status-todo"></div>
+    <div class="task-body">
+      <div class="task-name">Оценка аптек (Запорожье)</div>
+      <div class="task-meta">Ожидает · Новая локация</div>
+    </div>
+  </div>
+  <div class="task">
+    <div class="task-status status-todo"></div>
+    <div class="task-body">
+      <div class="task-name">Оценка лабораторий (Донецк)</div>
+      <div class="task-meta">Ожидает · Форма готова</div>
+    </div>
+  </div>
+  <div class="task">
+    <div class="task-status status-todo"></div>
+    <div class="task-body">
+      <div class="task-name">Оценка лабораторий (Запорожье)</div>
+      <div class="task-meta">Ожидает · Новая локация</div>
+    </div>
+  </div>
+  <div class="task">
+    <div class="task-status status-todo"></div>
+    <div class="task-body">
+      <div class="task-name">Закупка медикаментов по ваучерам</div>
+      <div class="task-meta">Ожидает · Списки согласованы</div>
+    </div>
+  </div>
+  <div class="task">
+    <div class="task-status status-todo"></div>
+    <div class="task-body">
+      <div class="task-name">Обустройство 2 мобильных медпунктов</div>
+      <div class="task-meta">Ожидает · Бюджет: страновой фонд</div>
+    </div>
+  </div>
+  <div class="task">
+    <div class="task-status status-todo"></div>
+    <div class="task-body">
+      <div class="task-name">Набор медицинского персонала (мобильные группы)</div>
+      <div class="task-meta">Ожидает · Требуются CV + дипломы</div>
+    </div>
+  </div>
+  <div class="task">
+    <div class="task-status status-todo"></div>
+    <div class="task-body">
+      <div class="task-name">Запуск ваучерной программы (медикаменты + лаб. тесты)</div>
+      <div class="task-meta">Ожидает · Зависит от оценки лабораторий</div>
+    </div>
+  </div>
+  <div class="task">
+    <div class="task-status status-todo"></div>
+    <div class="task-body">
+      <div class="task-name">Формирование списка локаций (0–50 км от Донецка и Запорожья)</div>
+      <div class="task-meta">Ожидает · 2 недели оценки</div>
+    </div>
+  </div>
+</div>
+
+<!-- ИНДИКАТОРЫ -->
+<div class="card">
+  <h2><span class="icon">&#128200;</span> Проектные индикаторы</h2>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-value">0</div>
+      <div class="kpi-target">цель: по оценке</div>
+      <div class="kpi-label">Бенефициары охвачены</div>
+      <div class="kpi-bar-bg"><div class="kpi-bar-fill kpi-bar-red" style="width:0%"></div></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">0</div>
+      <div class="kpi-target">цель: 2</div>
+      <div class="kpi-label">Аптеки оценены</div>
+      <div class="kpi-bar-bg"><div class="kpi-bar-fill kpi-bar-red" style="width:0%"></div></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">0</div>
+      <div class="kpi-target">цель: 2</div>
+      <div class="kpi-label">Лаборатории оценены</div>
+      <div class="kpi-bar-bg"><div class="kpi-bar-fill kpi-bar-red" style="width:0%"></div></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">0</div>
+      <div class="kpi-target">цель: 2</div>
+      <div class="kpi-label">Мобильные пункты функционируют</div>
+      <div class="kpi-bar-bg"><div class="kpi-bar-fill kpi-bar-red" style="width:0%"></div></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">0</div>
+      <div class="kpi-target">цель: 1 680</div>
+      <div class="kpi-label">Мед. консультации проведены</div>
+      <div class="kpi-bar-bg"><div class="kpi-bar-fill kpi-bar-red" style="width:0%"></div></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">0</div>
+      <div class="kpi-target">цель: 2 140</div>
+      <div class="kpi-label">Консультации защиты проведены</div>
+      <div class="kpi-bar-bg"><div class="kpi-bar-fill kpi-bar-red" style="width:0%"></div></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">0</div>
+      <div class="kpi-target">цель: 6 120</div>
+      <div class="kpi-label">Ваучеры выдано</div>
+      <div class="kpi-bar-bg"><div class="kpi-bar-fill kpi-bar-red" style="width:0%"></div></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">0</div>
+      <div class="kpi-target">цель: 370</div>
+      <div class="kpi-label">Транспортировка выполнена</div>
+      <div class="kpi-bar-bg"><div class="kpi-bar-fill kpi-bar-red" style="width:0%"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ТАЙМЛАЙН -->
+<div class="card">
+  <h2><span class="icon">&#128198;</span> Ключевые даты</h2>
+  <div class="task">
+    <div class="task-status status-progress"></div>
+    <div class="task-body">
+      <div class="task-name">Май 2026 — Подготовка документации</div>
+      <div class="task-meta">В процессе · Перевод, согласование списков</div>
+    </div>
+  </div>
+  <div class="task">
+    <div class="task-status status-todo"></div>
+    <div class="task-body">
+      <div class="task-name">Июнь 2026 — Оценка аптек (Донецк)</div>
+      <div class="task-meta">Ожидает · ~1 неделя</div>
+    </div>
+  </div>
+  <div class="task">
+    <div class="task-status status-todo"></div>
+    <div class="task-body">
+      <div class="task-name">Июнь–Июль 2026 — Оценка аптек и лабораторий (Запорожье)</div>
+      <div class="task-meta">Ожидает · +2–3 недели</div>
+    </div>
+  </div>
+  <div class="task">
+    <div class="task-status status-todo"></div>
+    <div class="task-body">
+      <div class="task-name">Июль–Август 2026 — Запуск мобильных групп и ваучеров</div>
+      <div class="task-meta">Ожидает · Зависит от оценок</div>
+    </div>
+  </div>
+</div>
+
+<!-- БЕНЕФИЦИАРЫ -->
+<div class="card">
+  <h2><span class="icon">&#129309;</span> Целевые группы (бенефициары)</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+    <span class="badge badge-gray">Дети до 12 лет</span>
+    <span class="badge badge-gray">Пожилые 60+</span>
+    <span class="badge badge-gray">Инвалиды</span>
+    <span class="badge badge-gray">Беременные и кормящие</span>
+    <span class="badge badge-gray">ВПЛ</span>
+    <span class="badge badge-gray">Хронические заболевания</span>
+    <span class="badge badge-gray">Без документов ОМС</span>
+  </div>
+</div>
+
+<footer>
+  Обновлено: 27 мая 2026 · Filum / aination.center
+</footer>
+
+</div>
+</body>
+</html>

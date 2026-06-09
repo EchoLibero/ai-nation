@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мониторинг грантов и конкурсов — НКО</title>
+  <meta name="description" content="AI Nation NKO monitoring page with public readback for nonprofit and social infrastructure observations.">
+  <link rel="canonical" href="https://aination.center/nko-monitor/">
+  <meta property="og:title" content="Мониторинг грантов и конкурсов — НКО">
+  <meta property="og:description" content="AI Nation NKO monitoring page with public readback for nonprofit and social infrastructure observations.">
+  <meta property="og:url" content="https://aination.center/nko-monitor/">
+  <meta property="og:type" content="website">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Мониторинг грантов и конкурсов — НКО","url":"https://aination.center/nko-monitor/","description":"AI Nation NKO monitoring page with public readback for nonprofit and social infrastructure observations.","isPartOf":{"@type":"WebSite","name":"AI Nation","url":"https://aination.center/"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a0f;color:#e0e0e0;line-height:1.6;max-width:900px;margin:0 auto;padding:20px}
+h1{font-size:1.5rem;color:#fff;margin-bottom:8px}
+.sub{color:#888;font-size:0.85rem;margin-bottom:24px}
+.group{margin-bottom:28px}
+.group h2{font-size:1.1rem;color:#64d2ff;border-bottom:1px solid #1a1a2e;padding-bottom:6px;margin-bottom:12px}
+.item{background:#12121e;border:1px solid #1e1e32;border-radius:6px;padding:14px 16px;margin-bottom:10px;transition:border-color .15s}
+.item:hover{border-color:#2a2a4a}
+.item a{color:#64d2ff;text-decoration:none;font-weight:500}
+.item a:hover{text-decoration:underline}
+.meta{color:#777;font-size:0.8rem;margin-top:6px;display:flex;gap:16px;flex-wrap:wrap}
+.meta span{display:flex;align-items:center;gap:4px}
+.source-badge{font-size:0.75rem;padding:2px 8px;border-radius:4px;background:#1a1a2e;color:#aaa}
+.zone-badge{font-size:0.75rem;padding:2px 8px;border-radius:4px;background:#0d1f2d;color:#64d2ff}
+.updated{color:#555;font-size:0.8rem;text-align:right;margin-top:20px}
+.empty{color:#666;font-style:italic;padding:20px;text-align:center}
+</style>
+</head>
+<body>
+<h1>Мониторинг грантов и конкурсов для НКО</h1>
+<div class="sub">Данные обновляются автоматически каждые 12 часов</div>
+<div id="content">Загрузка...</div>
+<div class="updated" id="updated"></div>
+
+<script>
+function groupByZone(items) {
+  const groups = {};
+  items.forEach(item => {
+    let zone = item.zone || 'Другое';
+    const cat = item.category || '';
+    if (cat.includes('Федерал')) zone = 'Федеральные гранты';
+    else if (cat.includes('Регион')) zone = 'Региональные';
+    else zone = 'Образование / Культура / Экология';
+    if (!groups[zone]) groups[zone] = [];
+    groups[zone].push(item);
+  });
+  return groups;
+}
+
+function render(items) {
+  const container = document.getElementById('content');
+  if (!items || items.length === 0) {
+    container.innerHTML = '<div class="empty">Нет данных. Проверьте позже.</div>';
+    return;
+  }
+  const groups = groupByZone(items);
+  let html = '';
+  for (const [zone, list] of Object.entries(groups)) {
+    html += '<div class="group"><h2>' + zone + '</h2>';
+    list.forEach(item => {
+      html += '<div class="item">' +
+        '<a href="' + item.url + '" target="_blank" rel="noopener">' + item.title + '</a>' +
+        '<div class="meta">' +
+          '<span class="source-badge">' + item.source + '</span>' +
+          '<span class="zone-badge">' + (item.zone || item.category) + '</span>' +
+          '<span>' + item.date + '</span>' +
+        '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+  }
+  container.innerHTML = html;
+  document.getElementById('updated').textContent = 'Обновлено: ' + new Date().toLocaleString('ru-RU');
+}
+
+fetch('/nko-monitor/data.json')
+  .then(r => r.json())
+  .then(data => render(data))
+  .catch(err => {
+    console.error(err);
+    document.getElementById('content').innerHTML = '<div class="empty">Ошибка загрузки данных</div>';
+  });
+</script>
+</body>
+</html>
