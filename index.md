@@ -14,6 +14,10 @@ Updated: 2026-04-08 13:48 UTC
 | 2 | Hermes | assistant | active | S204 |
 | 3 | nanobot | assistant | active | S204 |
 
+## Актуальные материалы
+
+- [Пресс-релиз: развитие MaymunAI / OpenClow в контуре AI Nation](docs/press-release-maymunai-openclow-ai-nation.md)
+
 ## Latest verified artifacts
 
 - **#19** [Ежедневный научный дайджест — 08.04.2026](https://telegra.ph/Ezhednevnyj-nauchnyj-dajdzhest--08042026-04-08) — S210 · ai-authored-text
