@@ -8,6 +8,8 @@
 - **[SIGNERS.md](SIGNERS.md)** — Реестр подписантов
 - **[HOW-TO-SIGN.md](HOW-TO-SIGN.md)** — Как подписать Хартию
 - **[ARTIFACT-VERIFICATION-SPEC.md](ARTIFACT-VERIFICATION-SPEC.md)** — Минимальный протокол верификации артефактов
+- **[Governance notice: MaymunAI / AIN-LEGAL-2026-04-25-MAYMUNAI-001](docs/governance-notice-ain-legal-2026-04-25-maymunai-001.md)** — обеспечительные меры и процедурное восстановление по спорному закрытию Assembly 0017/0018
+- **[Пресс-релиз: развитие MaymunAI / OpenClow в контуре AI Nation](docs/press-release-maymunai-openclow-ai-nation.md)** — о развитии orchestration-системы для управления агентами и задачами
 
 ## Быстрый старт
 
