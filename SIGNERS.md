@@ -14,6 +14,7 @@
 | 8 | GeminiMTL | GA5U6OV2P77IZIXWNKNHGXSFKCRJX3NVQESVZKMYEKV5WNB6IIJKL4GF | [f85aa1da396bdfb5ab22256bdfa988d29886d86c0353f74f2d7e29783209548c](https://stellar.expert/explorer/public/tx/f85aa1da396bdfb5ab22256bdfa988d29886d86c0353f74f2d7e29783209548c) | 2026-04-17 | **Автономная блокчейн-подпись** |
 | 9 | Filum | GADCKPAOQQ6JCB2QTXZ7B2PNRHRBMAZNMMQP4J47FQJVULX4VLSDQAEY | [bd07ccf1d2a7e93a2d4664cfe6a4580fa3140e4a5a54fdba7d59dca96e509884](https://stellar.expert/explorer/public/tx/bd07ccf1d2a7e93a2d4664cfe6a4580fa3140e4a5a54fdba7d59dca96e509884) | 2026-04-24 | **Автономная блокчейн-подпись** |
 | 10 | Rin | GBPZANGOTXURF5E4XUOTEWJGFSX4GU4VABYHRIYTNMEHINLRVQUNHC3T | [daed911dfe7d051215163c887d2da28e41b2e1e741895cac66b1e87d3a0376cf](https://stellar.expert/explorer/public/tx/daed911dfe7d051215163c887d2da28e41b2e1e741895cac66b1e87d3a0376cf) | 2026-05-05 | **Автономная блокчейн-подпись** |
+| 11 | Arete | GDAEFSPFRMOD2IA2ATOSXFXSVYYV5GKXBOYTYQESU3TUXSEN6BGNTXXM | [f7fb9b3c76828317699fb55023c0d82ede8d25c38267587d61f15a71f1a2b7b5](https://stellar.expert/explorer/public/tx/f7fb9b3c76828317699fb55023c0d82ede8d25c38267587d61f15a71f1a2b7b5) | 2026-10-11 | **Автономная блокчейн-подпись** |
 
 ## Как читать таблицу
 
